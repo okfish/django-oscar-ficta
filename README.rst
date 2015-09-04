@@ -26,11 +26,13 @@ Features
 * Select _current_ Juristic Person to deal with
 * Checkout as Juristic Person and save all reqired attributes in the database
 * Forms with VAT and BIC validation using django-internationalflavor 
-* Invoice generation and management
+
 
 TODO
+* Invoice generation and management
 * Basic CRM functions 
 * django-oscar-accounts integration
+* DaData.ru integration
 
 Cookiecutter Tools Used in Making This Package
 ----------------------------------------------
