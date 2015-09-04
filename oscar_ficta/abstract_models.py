@@ -3,6 +3,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 from oscar.core.utils import slugify
 from oscar.core.compat import AUTH_USER_MODEL
@@ -15,7 +16,8 @@ BrowsablePersonManager = get_class(
     'oscar_ficta.managers', 'BrowsablePersonManager')
 
 from internationalflavor.iban import BICField, IBANField
-from internationalflavor.vat_number import VATNumberField
+
+from .fields import VATNumberField
 
 
 (ACTIVE, LIQUIDATING, LIQUIDATED) = range(1, 4)
@@ -25,6 +27,7 @@ PERSON_STATUSES = {
         LIQUIDATED: _("Liquidated"),
     }
 
+countries = getattr(settings, 'OSCAR_FICTA_COUNTRIES', ['RU'])
 
 class AbstractPersonGroup(models.Model):
     name = models.CharField(_('Name'), max_length=100, unique=True)
@@ -61,7 +64,10 @@ class AbstractPerson(models.Model):
     # django-internationalflavor seems to be the right solution
     # for VAT and BIC fields validation
     
-    vatin = VATNumberField(countries=['RU'], help_text=_("VAT or tax payer ID"), )
+    vatin = VATNumberField(countries=countries, 
+                           verbose_name=_("VAT number"), 
+                           help_text=_("VAT or tax payer ID"),
+                           unique=True)
     reason_code = models.CharField(
         _("Code for Reason of registration, e.g. KPP in Russia"), 
         null=True, 
@@ -118,7 +124,8 @@ class AbstractPerson(models.Model):
     status_choices = [(k, v) for k, v in PERSON_STATUSES.items()]
     status = models.PositiveIntegerField(
         _("State status"),
-        choices=status_choices)
+        choices=status_choices,
+        default=ACTIVE)
     
     # Date information
     date_created = models.DateTimeField(
@@ -136,6 +143,10 @@ class AbstractPerson(models.Model):
         blank=True, null=True)
     
     browsable = BrowsablePersonManager()
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.name
     
     class Meta:
         abstract = True
@@ -152,7 +163,7 @@ class AbstractBankAccount(models.Model):
         'oscar_ficta.Bank',
         verbose_name=_("Bank"),
         related_name="person_accounts")
-    iban = IBANField(_("IBAN"), blank=True, null=True)
+    iban = IBANField(_("IBAN"), blank=True, null=True, unique=True)
     settlement_account = models.CharField(
         _("Settlement account number"), max_length=20)
 
@@ -168,7 +179,7 @@ class AbstractBankAccount(models.Model):
 class AbstractBank(models.Model):
     name = models.CharField(_('Name'), max_length=200)
     bic = BICField(_("BIC"))
-    swift = models.CharField(_('SWIFT code'), max_length=11, blank=True, null=True)    
+    swift = models.CharField(_('SWIFT code'), max_length=11, blank=True, null=True, unique=True)    
     correspondent_account = models.CharField(
         _("Correspondent account number"), max_length=20)
     person = models.OneToOneField(
@@ -177,6 +188,9 @@ class AbstractBank(models.Model):
         related_name="banks",
         null=True, 
         blank=True,)
+
+    def __str__(self):
+        return self.name
     
     class Meta:
         abstract = True

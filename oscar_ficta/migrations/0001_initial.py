@@ -7,9 +7,12 @@ import internationalflavor.iban.models
 import oscar.models.fields
 from django.conf import settings
 import internationalflavor.vat_number.models
+import oscar_ficta.fields
 
 
 class Migration(migrations.Migration):
+
+    replaces = [(b'oscar_ficta', '0001_initial'), (b'oscar_ficta', '0002_auto_20150904_1708'), (b'oscar_ficta', '0003_auto_20150904_1812'), (b'oscar_ficta', '0004_auto_20150904_1850')]
 
     dependencies = [
         ('address', '0001_initial'),
@@ -150,6 +153,42 @@ class Migration(migrations.Migration):
             model_name='bank',
             name='person',
             field=models.OneToOneField(related_name='banks', null=True, blank=True, to='oscar_ficta.Person', verbose_name='Juristic person'),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='person',
+            name='status',
+            field=models.PositiveIntegerField(default=1, verbose_name='State status', choices=[(1, '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435'), (2, 'Liquidating process started'), (3, 'Liquidated')]),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='person',
+            name='vatin',
+            field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', countries=[b'RU', b'UA']),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='person',
+            name='vatin',
+            field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', verbose_name='VAT number', countries=[b'RU', b'UA']),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='bank',
+            name='swift',
+            field=models.CharField(max_length=11, unique=True, null=True, verbose_name='SWIFT code', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='bankaccount',
+            name='iban',
+            field=internationalflavor.iban.models.IBANField(countries='IBAN', unique=True, null=True, blank=True),
+            preserve_default=True,
+        ),
+        migrations.AlterField(
+            model_name='person',
+            name='vatin',
+            field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', unique=True, verbose_name='VAT number', countries=[b'RU', b'UA']),
             preserve_default=True,
         ),
     ]
