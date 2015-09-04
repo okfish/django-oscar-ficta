@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.views import generic
 
-from oscar.core.loading import get_classes, get_model
+from oscar.core.loading import get_classes, get_class, get_model
 from oscar.core.compat import get_user_model
 from oscar.views import sort_queryset
 from oscar.views.generic import ObjectLookupView
@@ -27,7 +27,7 @@ class PersonSelectView(generic.View):
     This multi-purpose view renders out a form to edit the partner's details,
     the associated address and a list of all associated users.
     """
-    template_name = 'oscar_ficta/person_select.html'
+    template_name = 'oscar_ficta/partials/person_select.html'
     context_object_name = 'persons'
     create_form_class = PersonForm
     select_form_class = PersonSelectForm
@@ -62,12 +62,13 @@ class PersonSelectView(generic.View):
         return qs
 
     def get_context_data(self, **kwargs):
-        ctx = super(PersonSelectView, self).get_context_data(**kwargs)
+        #ctx = super(PersonSelectView, self).get_context_data(**kwargs)
+        ctx = {}
         default_person = self.get_default_person()
         ctx['default_person'] = default_person
-        ctx['select_form'] = select_form_class(for_user=self.user, 
+        ctx['select_form'] = self.select_form_class(for_user=self.user, 
                                                default_person=default_person)
-        ctx['create_form'] = create_form_class()
+        ctx['create_form'] = self.create_form_class()
         return ctx
 
 #     def form_valid(self, form):
@@ -86,7 +87,7 @@ class PersonSelectView(generic.View):
 #         ctx['basket'] = request.basket
 
         return render(request, 
-                      self.template, 
+                      self.template_name, 
                       ctx, content_type="text/html" )
          
 class PersonLookupView(ObjectLookupView):
