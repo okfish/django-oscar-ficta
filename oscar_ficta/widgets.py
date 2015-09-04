@@ -13,4 +13,4 @@ class PersonRemoteSelect(RemoteSelect):
                               )
 
     def __init__(self, *args, **kwargs):
-        super(PecomCitySelect, self).__init__(*args, **kwargs)
+        super(PersonRemoteSelect, self).__init__(*args, **kwargs)
