@@ -12,8 +12,6 @@ import oscar_ficta.fields
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'oscar_ficta', '0001_initial'), (b'oscar_ficta', '0002_auto_20150904_1708'), (b'oscar_ficta', '0003_auto_20150904_1812'), (b'oscar_ficta', '0004_auto_20150904_1850')]
-
     dependencies = [
         ('address', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -190,5 +188,13 @@ class Migration(migrations.Migration):
             name='vatin',
             field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', unique=True, verbose_name='VAT number', countries=[b'RU', b'UA']),
             preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='bankaccount',
+            unique_together=set([('bank', 'settlement_account')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='person',
+            unique_together=set([('vatin', 'reason_code')]),
         ),
     ]

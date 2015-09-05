@@ -152,6 +152,7 @@ class AbstractPerson(models.Model):
         abstract = True
         verbose_name = _("Juristic person")
         verbose_name_plural = _("Juristic persons")
+        unique_together = ("vatin", "reason_code")
 
 
 class AbstractBankAccount(models.Model):
@@ -174,6 +175,7 @@ class AbstractBankAccount(models.Model):
         abstract = True
         verbose_name = _("Bank account")
         verbose_name_plural = _("Bank accounts")
+        unique_together = ("bank", "settlement_account")
 
 
 class AbstractBank(models.Model):
