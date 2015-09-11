@@ -1,0 +1,370 @@
+# Russian locale for django-oscar-ficta package.
+# Copyright (C) 2015, Teleme Dev Team
+# This file is distributed under the same license as the PACKAGE package.
+# Oleg Rybkin aka Fish <okfish@yandex.ru>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-11 18:52+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Oleg Rybkin aka Fish <okfish@yandex.ru>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: abstract_models.py:59 abstract_models.py:154
+msgid "Group"
+msgstr "Группа"
+
+#: abstract_models.py:60
+msgid "Groups"
+msgstr "Группы"
+
+#: abstract_models.py:73 abstract_models.py:192 abstract_models.py:234
+#: invoice/abstract_models.py:62
+msgid "Juristic person"
+msgstr "Юридическое лицо"
+
+#: abstract_models.py:78
+msgid "Legal address"
+msgstr "Юридический адрес"
+
+#: abstract_models.py:79
+msgid "Legal addresses"
+msgstr "Юридические адреса"
+
+#: abstract_models.py:92
+msgid "Active"
+msgstr "Действующее"
+
+#: abstract_models.py:93
+msgid "Liquidating process started"
+msgstr "Начат процесс ликвидации"
+
+#: abstract_models.py:94
+msgid "Liquidated"
+msgstr "Ликвидировано"
+
+#: abstract_models.py:97 forms.py:46
+msgid "VAT number"
+msgstr "ИНН"
+
+#: abstract_models.py:98 forms.py:47
+msgid "VAT or tax payer ID"
+msgstr "Индивидуальный номер налогоплательщика"
+
+#: abstract_models.py:100 forms.py:49
+msgid "Code for Reason of registration, e.g. KPP in Russia"
+msgstr "КПП"
+
+#: abstract_models.py:103 abstract_models.py:221
+msgid "Name"
+msgstr "Наименование"
+
+#: abstract_models.py:104
+msgid "Full Name"
+msgstr "Полное наименование"
+
+#: abstract_models.py:107
+msgid "Code"
+msgstr "Код"
+
+#: abstract_models.py:109
+msgid "Logo"
+msgstr "Логотип"
+
+#: abstract_models.py:111
+msgid "Image"
+msgstr "Изображение"
+
+#: abstract_models.py:116 invoice/abstract_models.py:42
+msgid "Fulfillment partner"
+msgstr "Поставщик"
+
+#: abstract_models.py:121
+msgid "Users"
+msgstr "Пользователи"
+
+#: abstract_models.py:126
+msgid "Manager name"
+msgstr "Менеджер"
+
+#: abstract_models.py:128
+msgid "GM or Director name"
+msgstr "Директор или генеральный менеджер"
+
+#: abstract_models.py:130
+msgid "Title for GM or Director"
+msgstr "Титул директора или менеджера"
+
+#: abstract_models.py:132
+msgid "Main Accountant name"
+msgstr "Главный бухгалтер"
+
+#: abstract_models.py:134
+msgid "Phone"
+msgstr "Телефон"
+
+#: abstract_models.py:135
+msgid "Email"
+msgstr "Эл.почта"
+
+#: abstract_models.py:136
+msgid "Web-site"
+msgstr "Веб-сайт"
+
+#: abstract_models.py:139
+msgid "Reference"
+msgstr "Ссылка"
+
+#: abstract_models.py:144
+msgid "A reference number that uniquely identifies this person"
+msgstr "Номер-ссылка, уникальный для каждого юр.лица"
+
+#: abstract_models.py:147
+msgid "Description"
+msgstr "Описание"
+
+#: abstract_models.py:158 abstract_models.py:210
+msgid "Is active"
+msgstr "Активно"
+
+#: abstract_models.py:162
+msgid "State status"
+msgstr "Статус юр.лица"
+
+#: abstract_models.py:168 invoice/abstract_models.py:87
+msgid "Date created"
+msgstr "Дата создания"
+
+#: abstract_models.py:171 invoice/abstract_models.py:90
+msgid "Date updated"
+msgstr "Дата обновления"
+
+#: abstract_models.py:175
+msgid "Date of registration"
+msgstr "Дата регистрации"
+
+#: abstract_models.py:178
+msgid "Date of liquidation"
+msgstr "Дата ликвидации"
+
+#: abstract_models.py:193
+msgid "Juristic persons"
+msgstr "Юридические лица"
+
+#: abstract_models.py:200
+msgid "Owner's juristic person"
+msgstr "Юридическое лицо собственника счета"
+
+#: abstract_models.py:204 abstract_models.py:247
+msgid "Bank"
+msgstr "Банк"
+
+#: abstract_models.py:206
+msgid "IBAN"
+msgstr "IBAN"
+
+#: abstract_models.py:208
+msgid "Settlement account number"
+msgstr "Рассчетный счет"
+
+#: abstract_models.py:211
+msgid "Use it by default?"
+msgstr "Использовать по-умолчанию?"
+
+#: abstract_models.py:215
+msgid "Bank account"
+msgstr "Банковский счет"
+
+#: abstract_models.py:216
+msgid "Bank accounts"
+msgstr "Банковские счета"
+
+#: abstract_models.py:222
+msgid "Location"
+msgstr "Расположение"
+
+#: abstract_models.py:224
+msgid ""
+"Short bank location (usually, city), which commonlycan be recieved via bank-"
+"client software"
+msgstr ""
+"Короткое наименование расположения банка (обычно город),"
+"как правило, получаемое через банк-клиент"
+
+#: abstract_models.py:228
+msgid "BIC"
+msgstr "БИК"
+
+#: abstract_models.py:228
+msgid "Bank Identification Code (international or local)"
+msgstr "Банковский идентификационный код"
+
+#: abstract_models.py:229
+msgid "SWIFT code"
+msgstr "код SWIFT"
+
+#: abstract_models.py:231
+msgid "Correspondent account number"
+msgstr "Корреспондентский счет"
+
+#: abstract_models.py:248
+msgid "Banks"
+msgstr "Банки"
+
+#: config.py:8
+msgid "Persona Ficta for Oscar"
+msgstr "Persona Ficta для Оскара"
+
+#: fields.py:85
+msgid "An International Bank Code"
+msgstr "Международный банковский код"
+
+#: forms.py:44
+msgid "Name or title"
+msgstr "Название компании или имя предпринимателя"
+
+#: forms.py:66
+msgid "Available juristic persons"
+msgstr "Доступные юридические лица"
+
+#: forms.py:67
+msgid "Persons assigned for the user"
+msgstr "Юр.лица, доступные пользователю"
+
+#: forms.py:75
+msgid "No juristic persons found"
+msgstr "Юридических лиц не найдено"
+
+#: forms.py:81
+msgid "All available persons"
+msgstr "Все доступные юр.лица"
+
+#: forms.py:82
+msgid "active juristic persons"
+msgstr "активные юридические лица"
+
+#: invoice/abstract_models.py:23
+msgid "Draft"
+msgstr "Черновик"
+
+#: invoice/abstract_models.py:24
+msgid "New"
+msgstr "Новый"
+
+#: invoice/abstract_models.py:25
+msgid "Invoice sent"
+msgstr "Выслан"
+
+#: invoice/abstract_models.py:26
+msgid "Approved by buyer"
+msgstr "Подтвержден покупателем"
+
+#: invoice/abstract_models.py:27
+msgid "Declined by buyer"
+msgstr "Отклонен покупателем"
+
+#: invoice/abstract_models.py:28
+msgid "Invoice paid partially"
+msgstr "Оплачен частично"
+
+#: invoice/abstract_models.py:29
+msgid "Invoice paid fully"
+msgstr "Оплачен полностью"
+
+#: invoice/abstract_models.py:30
+msgid "Overpaid"
+msgstr "Переплачен"
+
+#: invoice/abstract_models.py:31
+msgid "Outdated for payment"
+msgstr "Просрочен"
+
+#: invoice/abstract_models.py:32
+msgid "Cancelled by manager"
+msgstr "Отменен менеджером"
+
+#: invoice/abstract_models.py:33
+msgid "Deleted"
+msgstr "Удален"
+
+#: invoice/abstract_models.py:48
+msgid "Order number"
+msgstr "Номер счета"
+
+#: invoice/abstract_models.py:52
+msgid "Order"
+msgstr "Счет"
+
+#: invoice/abstract_models.py:57
+msgid "User"
+msgstr "Пользователь"
+
+#: invoice/abstract_models.py:66
+msgid "Invoice status"
+msgstr "Статус счета"
+
+#: invoice/abstract_models.py:78
+msgid "Currency"
+msgstr "Валюта"
+
+#: invoice/abstract_models.py:80
+msgid "Order total (inc. tax)"
+msgstr "Итого (вкл. налоги)"
+
+#: invoice/abstract_models.py:82
+msgid "Order total (excl. tax)"
+msgstr "Итого (без налогов)"
+
+#: invoice/config.py:8
+msgid "Payment via Invoice for Oscar"
+msgstr "Платежные счета для Оскара"
+
+#: invoice/facade.py:45
+#, python-format
+msgid "Can't save invoice for order #%s"
+msgstr "Невозможно сохранить счет для заказа №%s"
+
+#: invoice/views.py:64
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "%(verbose_name)s не найдены по запросу"
+
+#: templates/oscar_ficta/partials/person_select.html:5
+msgid "Choose counter-agent"
+msgstr "Выберите контр-агента"
+
+#: templates/oscar_ficta/partials/person_select.html:19
+msgid "This company pays always!"
+msgstr "Эта компания заплатит всегда!"
+
+#: templates/oscar_ficta/partials/person_select.html:23
+msgid "create another one!"
+msgstr "создать новое юр.лицо"
+
+#: templates/oscar_ficta/partials/person_select.html:37
+msgid "Save and go on!"
+msgstr "Сохранить и продолжить"
+
+#: validators.py:42
+#, python-format
+msgid "This Bank Identifier Code (BIC #%s) is not valid for Russia."
+msgstr "Этот банковский идентификационный код (БИК #%s) не подходит для России"
+
+#: validators.py:47
+msgid "First 2 digits should be Russian Federation code (04). Used: "
+msgstr "Первые 2 цифры должны быть кодом РФ (04). Предложены: "
+
+#: validators.py:51
+msgid "Invalid credit organisation number:"
+msgstr "Неверный номер кредитной организации"
+
+#: views.py:46
+msgid "Available persons"
+msgstr "Доступные юр.лица"
