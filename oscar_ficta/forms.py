@@ -47,7 +47,7 @@ class PersonForm(forms.Form):
                            help_text=_("VAT or tax payer ID"))
     reason_code = forms.CharField(
         label=_("Code for Reason of registration, e.g. KPP in Russia"), 
-        max_length=9)
+        max_length=9, required=False)
     
     #class Meta:
         #model = get_model('oscar_ficta', 'Person')
