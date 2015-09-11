@@ -6,7 +6,6 @@ import oscar.models.fields.autoslugfield
 import internationalflavor.iban.models
 import oscar.models.fields
 from django.conf import settings
-import internationalflavor.vat_number.models
 import oscar_ficta.fields
 
 
@@ -24,8 +23,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=200, verbose_name='\u0418\u043c\u044f')),
-                ('bic', internationalflavor.iban.models.BICField(verbose_name='BIC')),
-                ('swift', models.CharField(max_length=11, null=True, verbose_name='SWIFT code', blank=True)),
+                ('location', models.CharField(help_text='Short bank location (usually, city), which commonlycan be recieved via bank-client software', max_length=200, null=True, verbose_name='\u041c\u0435\u0441\u0442\u043e', blank=True)),
+                ('bic', oscar_ficta.fields.BICField(help_text='Bank Identification Code (international or local)', verbose_name='BIC')),
+                ('swift', models.CharField(max_length=11, unique=True, null=True, verbose_name='SWIFT code', blank=True)),
                 ('correspondent_account', models.CharField(max_length=20, verbose_name='Correspondent account number')),
             ],
             options={
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
             name='BankAccount',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('iban', internationalflavor.iban.models.IBANField(countries='IBAN', null=True, blank=True)),
+                ('iban', internationalflavor.iban.models.IBANField(countries='IBAN', unique=True, null=True, blank=True)),
                 ('settlement_account', models.CharField(max_length=20, verbose_name='Settlement account number')),
                 ('is_active', models.BooleanField(default=True, verbose_name='Is active')),
                 ('is_default', models.BooleanField(default=True, verbose_name='Use it by default?')),
@@ -79,20 +79,24 @@ class Migration(migrations.Migration):
             name='Person',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('vatin', internationalflavor.vat_number.models.VATNumberField(help_text='VAT or tax payer ID', countries=[b'RU'])),
+                ('vatin', oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', verbose_name='VAT number', countries=[b'RU', b'UA'])),
                 ('reason_code', models.CharField(max_length=9, null=True, verbose_name='Code for Reason of registration, e.g. KPP in Russia', blank=True)),
                 ('name', models.CharField(max_length=200, verbose_name='\u0418\u043c\u044f')),
+                ('full_name', models.CharField(max_length=254, null=True, verbose_name='Full Name', blank=True)),
                 ('slug', oscar.models.fields.autoslugfield.AutoSlugField(populate_from=b'name', editable=False, max_length=200, blank=True, unique=True, verbose_name='\u041a\u043e\u0434')),
+                ('logo', models.ImageField(max_length=255, upload_to=b'juristic/logos', null=True, verbose_name='Logo', blank=True)),
+                ('image', models.ImageField(max_length=255, upload_to=b'juristic/images', null=True, verbose_name='\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435', blank=True)),
                 ('manager_name', models.CharField(max_length=200, null=True, verbose_name='Manager name', blank=True)),
                 ('chief_name', models.CharField(max_length=200, null=True, verbose_name='GM or Director name', blank=True)),
                 ('chief_title', models.CharField(max_length=200, null=True, verbose_name='Title for GM or Director', blank=True)),
                 ('accountant_name', models.CharField(max_length=200, null=True, verbose_name='Main Accountant name', blank=True)),
                 ('phone', models.CharField(max_length=64, null=True, verbose_name='\u0422\u0435\u043b\u0435\u0444\u043e\u043d', blank=True)),
                 ('email', models.EmailField(max_length=254, null=True, verbose_name='\u0410\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b', blank=True)),
+                ('website', models.URLField(null=True, verbose_name='Web-site', blank=True)),
                 ('reference', models.CharField(null=True, max_length=32, blank=True, help_text='A reference number that uniquely identifies this person', unique=True, verbose_name='\u0417\u0430\u043c\u0435\u0442\u043a\u0438')),
                 ('description', models.TextField(max_length=2000, null=True, verbose_name='\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435', blank=True)),
                 ('is_active', models.BooleanField(default=True, verbose_name='Is active')),
-                ('status', models.PositiveIntegerField(verbose_name='State status', choices=[(1, '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435'), (2, 'Liquidating process started'), (3, 'Liquidated')])),
+                ('status', models.PositiveIntegerField(default=1, verbose_name='State status', choices=[(1, '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435'), (2, 'Liquidating process started'), (3, 'Liquidated')])),
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f')),
                 ('date_updated', models.DateTimeField(auto_now=True, verbose_name='\u0414\u0430\u0442\u0430 \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f', db_index=True)),
                 ('date_registration', models.DateTimeField(null=True, verbose_name='Date of registration', blank=True)),
@@ -109,11 +113,19 @@ class Migration(migrations.Migration):
             name='PersonGroup',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(unique=True, max_length=100, verbose_name='\u0418\u043c\u044f')),
-                ('slug', models.SlugField(unique=True, max_length=100, verbose_name='\u041f\u0443\u0442\u044c')),
+                ('path', models.CharField(unique=True, max_length=255)),
+                ('depth', models.PositiveIntegerField()),
+                ('numchild', models.PositiveIntegerField(default=0)),
+                ('name', models.CharField(max_length=255, verbose_name='Name', db_index=True)),
+                ('description', models.TextField(verbose_name='Description', blank=True)),
+                ('image', models.ImageField(max_length=255, upload_to=b'categories', null=True, verbose_name='Image', blank=True)),
+                ('slug', models.SlugField(max_length=255, verbose_name='Slug')),
             ],
             options={
+                'ordering': ['path'],
                 'abstract': False,
+                'verbose_name': '\u0413\u0440\u0443\u043f\u043f\u0430',
+                'verbose_name_plural': 'Groups',
             },
             bases=(models.Model,),
         ),
@@ -126,7 +138,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='partner',
-            field=models.ForeignKey(related_name='juristic_persons', verbose_name='\u041f\u0430\u0440\u0442\u043d\u0435\u0440-\u043f\u043e\u0441\u0442\u0430\u0432\u0449\u0438\u043a', to='partner.Partner', null=True),
+            field=models.ForeignKey(related_name='juristic_persons', verbose_name='\u041f\u0430\u0440\u0442\u043d\u0435\u0440-\u043f\u043e\u0441\u0442\u0430\u0432\u0449\u0438\u043a', blank=True, to='partner.Partner', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -134,6 +146,10 @@ class Migration(migrations.Migration):
             name='users',
             field=models.ManyToManyField(related_name='related_persons', verbose_name='\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0438', to=settings.AUTH_USER_MODEL, blank=True),
             preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='person',
+            unique_together=set([('vatin', 'reason_code')]),
         ),
         migrations.AddField(
             model_name='legaladdress',
@@ -147,54 +163,14 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(related_name='bank_accounts', verbose_name="Owner's juristic person", to='oscar_ficta.Person'),
             preserve_default=True,
         ),
+        migrations.AlterUniqueTogether(
+            name='bankaccount',
+            unique_together=set([('bank', 'settlement_account')]),
+        ),
         migrations.AddField(
             model_name='bank',
             name='person',
             field=models.OneToOneField(related_name='banks', null=True, blank=True, to='oscar_ficta.Person', verbose_name='Juristic person'),
             preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='person',
-            name='status',
-            field=models.PositiveIntegerField(default=1, verbose_name='State status', choices=[(1, '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435'), (2, 'Liquidating process started'), (3, 'Liquidated')]),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='person',
-            name='vatin',
-            field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', countries=[b'RU', b'UA']),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='person',
-            name='vatin',
-            field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', verbose_name='VAT number', countries=[b'RU', b'UA']),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='bank',
-            name='swift',
-            field=models.CharField(max_length=11, unique=True, null=True, verbose_name='SWIFT code', blank=True),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='bankaccount',
-            name='iban',
-            field=internationalflavor.iban.models.IBANField(countries='IBAN', unique=True, null=True, blank=True),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='person',
-            name='vatin',
-            field=oscar_ficta.fields.VATNumberField(help_text='VAT or tax payer ID', unique=True, verbose_name='VAT number', countries=[b'RU', b'UA']),
-            preserve_default=True,
-        ),
-        migrations.AlterUniqueTogether(
-            name='bankaccount',
-            unique_together=set([('bank', 'settlement_account')]),
-        ),
-        migrations.AlterUniqueTogether(
-            name='person',
-            unique_together=set([('vatin', 'reason_code')]),
         ),
     ]
