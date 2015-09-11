@@ -1,5 +1,6 @@
 django>=1.5.1
 wheel==0.24.0
 # Additional requirements go here
-django-scar
-django-internationalflavor
+django-oscar
+# we use own branch with customized validator for Russian VAT numbers
+-e git+https://github.com/okfish/django-internationalflavor.git#egg=django_internationalflavor
