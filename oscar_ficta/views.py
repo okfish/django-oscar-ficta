@@ -103,3 +103,5 @@ class PersonLookupView(ObjectLookupView):
 class PersonDetailView(generic.DetailView):
      pass
 
+class PersonGroupView(generic.TemplateView):
+     pass
