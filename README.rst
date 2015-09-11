@@ -18,18 +18,24 @@ Install django-oscar-ficta::
 
 Then use it in a project::
 
-    import oscar_ficta
+    * add 'oscar_ficta' and 'invoice' to INSTALLED_APPS;
+    * migrate database;
+    * TODO: install sandbox project
 
 Features
 --------
 
 * Select _current_ Juristic Person to deal with
 * Checkout as Juristic Person and save all reqired attributes in the database
-* Forms with VAT and BIC validation using django-internationalflavor 
+* Forms with VAT and BIC validation using django-internationalflavor, customized for localized use (e.g. in Russia). Note: we using our own branch with some additions not PRed yet  
 
+
+Requirements
+------------
+	django-oscar
+	django-internationalflavor
 
 TODO
-* Invoice generation and management
 * Basic CRM functions 
 * django-oscar-accounts integration
 * DaData.ru integration
