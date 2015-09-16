@@ -1,4 +1,5 @@
 import warnings
+import logging
 
 from django.contrib import messages
 from django.core.paginator import InvalidPage
@@ -17,6 +18,7 @@ Invoice = get_model('invoice', 'Invoice')
 
 countries = getattr(settings, 'OSCAR_FICTA_COUNTRIES', ['RU'])
 
+logger = logging.getLogger('oscar_ficta.invoice')
 
 class InvoiceDetailView(DetailView):
     context_object_name = 'invoice'
@@ -44,11 +46,26 @@ class InvoicePrintView(DetailView):
 
         # Next, try looking up by invoice number.
         number = self.kwargs.get(self.number_url_kwarg, None)
-
+        user = self.request.user
+        logger.info("Invoice #%s generating started by user #%s", number, user.id)
         if number is not None:
             # TODO: add printable manager
-            queryset = queryset.filter(number=number, 
-                                       status__in=(Invoice.NEW, Invoice.SENT, Invoice.APPROVED))
+            q_args = {'number' : number,}
+            if not user.is_superuser:
+                # superuser can print any invoice
+                q_args['status__in'] = (Invoice.NEW, Invoice.SENT, Invoice.APPROVED)
+            if user.has_perm('partner.dashboard_access') and not user.is_staff:
+                # users attached to partner can print any partner's invoice
+                # this is depends on business logic
+                user_persons = []
+                for p in user.partners.values_list():
+                    p += p.juristic_persons.values_list()
+                q_args['partner_person__in'] = user_persons 
+            if not user.is_staff:
+                # staff users can print any 
+                q_args['user'] = user
+            logger.info("QS for invoice #%s: %s", number, q_args)    
+            queryset = queryset.filter(**q_args)
 
 
         # If none of those are defined, it's an error.
@@ -61,6 +78,7 @@ class InvoicePrintView(DetailView):
             # Get the single item from the filtered queryset
             obj = queryset.get()
         except queryset.model.DoesNotExist:
+            logger.error("Invoice not found #%s: %s", number, q_args)
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
         return obj   

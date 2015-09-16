@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.decorators.cache import cache_page
+from django.contrib.auth.decorators import login_required
 
 from oscar.core.application import Application
 
@@ -18,7 +19,7 @@ class InvoiceApplication(Application):
     def get_urls(self):
         urlpatterns = super(InvoiceApplication, self).get_urls()
         urlpatterns += patterns('',
-            url(r'^print/(?P<number>[\w-]+)/$', self.print_view.as_view(),
+            url(r'^print/(?P<number>[\w-]+)/$', login_required(self.print_view.as_view()),
                 name='print'),
             url(r'^view/(?P<pk>\d+)/$',
                 self.detail_view.as_view(), name='detail'),
