@@ -1,0 +1,33 @@
+{% extends 'dashboard/layout.html' %}
+{% load url from future %}
+{% load currency_filters %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Enable Juristic person" %} #{{ person.id }} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+    <li>
+		<a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <span class="divider">/</span>
+    </li>
+    <li>
+		<a href="{% url 'oscar_ficta_dashboard:persons-list' %}">{% trans "Juristic persons" %}</a>
+        <span class="divider">/</span>
+    </li>
+	<li class="active">{% trans "Enable Juristic person" %} {{ person }}</li>
+</ul>
+{% endblock %}
+
+{% block headertext %}{% trans "Enable Juristic person?" %}{% endblock %}
+
+{% block dashboard_content %}
+    {% include 'oscar_ficta/dashboard/partials/person_detail.html' %}
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-large btn-success">{% trans "Enable" %}</button>
+    </form>
+{% endblock dashboard_content %}

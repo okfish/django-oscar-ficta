@@ -1,0 +1,99 @@
+{% extends 'dashboard/layout.html' %}
+{% load url from future %}
+{% load currency_filters %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Juristic  person" %} #{{ person.id }} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+    <li>
+		<a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        <span class="divider">/</span>
+    </li>
+    <li>
+		<a href="{% url 'oscar_ficta_dashboard:persons-list' %}">{% trans "Juristic persons" %}</a>
+        <span class="divider">/</span>
+    </li>
+    <li class="active">{{ person }}</li>
+</ul>
+{% endblock %}
+
+{% block header %}
+<div class="page-header">
+	<h1>{{ person }}</h1>
+</div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+{% include 'oscar_ficta/dashboard/partials/person_detail.html' %}
+<p>
+    <a class="btn" href="{% url 'oscar_ficta_dashboard:persons-update' person.id %}">{% trans "Edit" %}</a>
+	{% if person.is_active %}
+	<a href="{% url 'oscar_ficta_dashboard:persons-freeze' person.id %}" class="btn btn-danger">{% trans "Freeze" %}</a>
+	{% else %}
+	<a href="{% url 'oscar_ficta_dashboard:persons-enable' person.id %}" class="btn btn-success">{% trans "Enable" %}</a>
+	{% endif %}
+</p>
+
+<h2>{% trans "Bank accounts" %}</h2>
+{% if person.bank_accounts.count %}
+	<table id="" class="table">
+		<thead>
+			<tr>
+				<th>{% trans "Bank" %}</th>
+				<th>{% trans "Settlement" %}</th>
+				<th>{% trans "Default?" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for account in person.bank_accounts.all %}
+			<tr>
+				<td>{{ account.bank.name }}</td>
+				<td>{{ account.settlement_account }}</td>
+				<td>{{ account.is_default }}</td>
+
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% else %}
+	<p>{% trans "No accounts." %}</p>
+{% endif %}
+
+<h2>{% trans "Invoices" %}</h2>
+{% if person.invoices.count %}
+	<table id="" class="table">
+		<thead>
+			<tr>
+				<th>{% trans "Number" %}</th>
+				<th>{% trans "Amount" %}</th>
+				<th>{% trans "Description" %}</th>
+				<th>{% trans "Created by" %}</th>
+				<th>{% trans "Date" %}</th>
+				<th>{% trans "Status" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for invoice in person.person_invoices.all %}
+			<tr>
+				<td><a title="Print|preview" target="_blank" href="{% url 'invoice:print' number=invoice.number %}">{{ invoice.number }}</a></td>
+				<td>{{ invoice.total_incl_tax|currency }}</td>
+				<td>{{ invoice.description|default:"-" }}</td>
+				<td>{{ invoice.user.full_name|default:invoice.user.email }}</td>
+				<td>{{ invoice.date_created }}</td>
+				<td>{{ invoice.current_status }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+    {% include "partials/pagination.html" %}
+{% else %}
+	<p>{% trans "No invoices." %}</p>
+{% endif %}
+
+
+{% endblock dashboard_content %}

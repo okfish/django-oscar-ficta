@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load url from future %}
+{% load currency_filters %}
+
+<table id="" class="table">
+    <tbody>
+        <tr>
+            <th>{% trans "Name" %}</th>
+            <td>{{ person.name }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Full Name" %}</th>
+            <td>{{ person.full_name }}</td>
+        </tr>
+        
+        <tr>
+            <th>{% trans "Description" %}</th>
+            <td>{{ person.description|default:"-" }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Status" %}</th>
+            <td>{{ person.current_status }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "VAT number" %}</th>
+            <td>{{ person.vatin }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Group" %}</th>
+            <td>{{ person.group.full_name }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Director" %}</th>
+            <td>{{ person.chief_name }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Legal address" %}</th>
+            <td>{{ person.legal_address }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Active?" %}</th>
+            <td>{{ person.is_active }}</td>
+        </tr>
+        
+        {% with num_users=person.users.count %}
+            {% if num_users %}
+                <tr>
+                    <th>{% trans "Num users" %}</th>
+                    <td>{{ num_users}}</td>
+                </tr>
+            {% endif %}
+        {% endwith %}
+    </tbody>
+</table>

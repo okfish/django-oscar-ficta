@@ -1,0 +1,46 @@
+{% extends 'dashboard/layout.html' %}
+{% load category_tags %}
+{% load i18n %}
+{% load render_table from django_tables2 %}
+
+{% block body_class %}{{ block.super }} catalogue{% endblock %}
+
+{% block title %}
+    {% trans "Groups" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Groups" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'oscar_ficta_dashboard:group-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new group" %}</a>
+        <h1>{% trans "Groups" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+    <div class="alert alert-info">
+        <p>{% trans "You are editing:" %}
+            <strong><a href="{% url 'oscar_ficta_dashboard:group-list' %}">{% trans "Home" %}</a></strong>
+            {% if ancestors %}
+                &gt;
+                {% for ancestor in ancestors %}
+                    <strong><a href="{% url 'oscar_ficta_dashboard:group-detail-list' pk=ancestor.pk %}">{{ ancestor.name }}</a></strong>{% if not forloop.last %} > {% endif %}
+                {% endfor %}
+            {% endif %}
+        </p>
+    </div>
+
+    {% render_table groups %}
+
+    {% if not child_groups %}
+        <p>{% trans "There are no categories." %}</p>
+    {% endif %}
+{% endblock dashboard_content %}

@@ -1,0 +1,86 @@
+{% extends 'dashboard/layout.html' %}
+{% load url from future %}
+{% load currency_filters %}
+{% load i18n %}
+
+{% block title %}
+    {{ title }} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+            <span class="divider">/</span>
+        </li>
+        <li>
+            <a href=".">{% trans "Counter-agents" %}</a>
+            <span class="divider">/</span>
+        </li>
+        <li class="active">{{ title }}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a id="create_new_person" href="{% url 'oscar_ficta_dashboard:persons-create' %}" class="btn btn-large btn-primary pull-right">{% trans "Create a new juristic person" %}</a></p>
+    <h1>{{ title }}</h1>
+</div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    <div class="well">
+        <div class="sub-header">
+            <h2>{% trans "Search" %}</h2>
+        </div>
+
+        <form method="get" action="." class="form-horizontal">
+            {% include 'partials/form_fields.html' %}
+            <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+            {% trans "or" %} <a href="{% url 'oscar_ficta_dashboard:persons-list' %}">{% trans "reset" %}</a>.
+        </form>
+    </div>
+
+    <div class="sub-header">
+        <h2>{{ queryset_description }}</h2>
+    </div>
+
+    {% if persons.count %}
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "VATIN" %}</th>
+                <th>{% trans "State status" %}</th>
+                <th>{% trans "Group" %}</th>
+                <th>{% trans "Num invoices" %}</th>
+                <th>{% trans "Date created" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+            {% for person in persons %}
+                {# When we're using bootstrap 2.1, we can use table row colors #}
+                <tr {% if not person.is_active %}style="color: #aaa"{% endif %}>
+                    <td><a href="{% url 'oscar_ficta_dashboard:persons-detail' person.id %}">{{ person.name|default:"<no_name>" }}</a></td>
+                    <td>{{ person.vatin }}</td>
+                    <td>{{ person.current_status }}</td>
+                    <td>{{ person.group.full_name }}</td>
+                    <td>{{ person.person_invoices.count }}</td>
+                    <td>{{ person.date_created }}</td>
+                    <td><a href="{% url 'oscar_ficta_dashboard:persons-update' person.id %}" class="btn">{% trans "Edit" %}</a>
+                        
+                        <a href="{% url 'oscar_ficta_dashboard:persons-detail' person.id %}" class="btn">{% trans "Orders" %}</a>
+                        {% if person.is_active %}
+                            <a href="{% url 'oscar_ficta_dashboard:persons-freeze' person.id %}" class="btn btn-danger">{% trans "Freeze" %}</a>
+                        {% else %}
+                            <a href="{% url 'oscar_ficta_dashboard:persons-enable' person.id %}" class="btn btn-success">{% trans "Enable" %}</a>
+                        {% endif %}
+                     
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% include "partials/pagination.html" %}
+    {% else %}
+        <p>{% trans "No results found." %}</p>
+    {% endif %}
+{% endblock dashboard_content %}

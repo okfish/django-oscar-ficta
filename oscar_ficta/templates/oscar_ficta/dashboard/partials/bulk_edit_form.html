@@ -1,0 +1,33 @@
+{% load i18n %}
+
+{% if status %}
+    <div class="well well-danger">
+        {% if status == "new" or status == "processing" %}
+            <button class="btn btn-primary" type="submit" name="action" value="generate_invoice_batch" data-loading-text="{% trans 'Submitting...' %}">{% trans "Print batch of invoices" %}</button>
+        {% endif %}
+
+        {% for id, name in available_status_list %}
+            <a data-toggle="modal" href="#{{ id }}_modal" class="btn btn-primary">{% trans "Mark as" %} {{ name }}</a>
+
+            <div class="modal hide fade" id="{{ id }}_modal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>{% trans "Change invoice status to" %} {{ name }}</h3>
+                </div>
+
+                <div class="modal-body">
+                    <span class="form-group">
+                        <label for="new_status">{% trans "Change invoice status to" %} {{ name }}</label>
+                        <input type="checkbox" name="new_status" id="new_status" value="{{ id }}"/>
+                    </span>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</a>
+                    <button type="submit" class="btn btn-primary" name="action" value="change_status_selected_invoices" data-loading-text="{% trans 'Submitting...' %}">{% trans "Done" %}</button>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

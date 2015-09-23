@@ -1,0 +1,51 @@
+{% extends 'dashboard/layout.html' %}
+{% load url from future %}
+{% load currency_filters %}
+{% load i18n %}
+
+{% block title %}
+    {{ title }} | {% trans "Juristic persons" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+            <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="{% url 'oscar_ficta_dashboard:persons-list' %}">{% trans "Juristic persons" %}</a>
+            <span class="divider">/</span>
+        </li>
+        <li class="active">{% trans "Create" %}</li>
+    </ul>
+{% endblock %}
+
+{% block headertext %}{{ title }}{% endblock %}
+
+{% block dashboard_content %}
+
+    <form class="form-stacked" action="." method="post">
+        {% csrf_token %}
+        <span class="help-block">{{ form.non_field_errors }}</span>
+        {% include 'partials/form_field.html' with field=form.name %}
+        {% include 'partials/form_field.html' with field=form.vatin %}
+        {% include 'partials/form_field.html' with field=form.reason_code %}
+        <div class="form-actions">
+            <button class="btn btn-primary btn-large" type="submit">{% trans "Save" %}</button>
+            {% trans "or" %}
+            <a href="{% url 'oscar_ficta_dashboard:persons-list' %}">{% trans "cancel" %}</a>
+        </div>
+    </form>
+
+{% endblock dashboard_content %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    $('a.form-toggle').click(function(){
+        $($(this)[0].parentNode.nextElementSibling).toggle();
+        // Bind datepicker
+        oscar.dashboard.init();
+        return false;
+    });
+{% endblock %}
