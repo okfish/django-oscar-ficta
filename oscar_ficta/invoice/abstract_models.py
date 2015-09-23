@@ -90,6 +90,9 @@ class AbstractInvoice(models.Model):
         _("Date updated"),
         auto_now=True,
         db_index=True)
+
+    def current_status(self):
+        return self.INVOICE_STATUSES[self.status]
     
     class Meta:
         abstract = True

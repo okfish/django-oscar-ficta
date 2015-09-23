@@ -2,6 +2,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 from django.utils.translation import ugettext as _
 from django.conf import settings
 
@@ -39,9 +40,11 @@ class AbstractPersonGroup(AbstractCategory):
         cache_key = 'FICTA_GROUP_URL_%s' % self.pk
         url = cache.get(cache_key)
         if not url:
+            # temporarily use link to group list
+            # TODO: PersonGroupView or redirect to filtered PersonListView
             url = reverse(
-                'oscar_ficta:group',
-                kwargs={'slug': self.full_slug, 'pk': self.pk})
+                'oscar_ficta_dashboard:group-detail-list',
+                kwargs={'pk': self.pk})
             cache.set(cache_key, url)
         return url
     
@@ -178,14 +181,19 @@ class AbstractPerson(models.Model):
         _("Date of liquidation"),
         blank=True, null=True)
     
-    browsable = BrowsablePersonManager()
+    # due to https://docs.djangoproject.com/en/1.8/topics/db/managers/#default-managers
+    # default manager should be placed first
     objects = models.Manager()
+    browsable = BrowsablePersonManager()
 
     def __str__(self):
         return u"%s" % self.name
     
     def __unicode__(self):
         return self.name
+    
+    def current_status(self):
+        return self.PERSON_STATUSES[self.status]
     
     class Meta:
         abstract = True
@@ -209,7 +217,7 @@ class AbstractBankAccount(models.Model):
 
     is_active = models.BooleanField(_("Is active"), default=True)
     is_default = models.BooleanField(_("Use it by default?"), default=True)
-    
+   
     class Meta:
         abstract = True
         verbose_name = _("Bank account")
@@ -225,7 +233,9 @@ class AbstractBank(models.Model):
                                             "can be recieved via bank-client software"))
     # we are using custom BICField which support OSCAR_FICTA_COUNTRIES setting
     # to resolve local BICs validation issue (russian, yep)
-    bic = BICField(_("BIC"), help_text=_("Bank Identification Code (international or local)"))
+    bic = BICField(_("BIC"), 
+                   help_text=_("Bank Identification Code (international or local)"), 
+                   unique=True)
     swift = models.CharField(_('SWIFT code'), max_length=11, blank=True, null=True, unique=True)    
     correspondent_account = models.CharField(
         _("Correspondent account number"), max_length=20)
