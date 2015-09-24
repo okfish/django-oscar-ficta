@@ -622,7 +622,7 @@ class InvoiceListView(BulkEditMixin, generic.ListView):
                 # online store.  Some examples of order status are
                 # "purchased", "cancelled", or "refunded".
                 _('Invoice status is {invoice_status}').format(
-                    invoice_status=data['status'])
+                    invoice_status=Invoice.INVOICE_STATUSES[int(data['status'])])
             )
 
         return descriptions
