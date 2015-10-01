@@ -14,21 +14,47 @@ logger = logging.getLogger('oscar.checkout')
 class CheckoutSessionMixin(object):
     """some helpers for managing juristic persons during checkout
     """
-    def pay_as_person(self, person_id):
-        id = -1
-        #  TODO: DRY it!
-        if person_id <> -1:
+
+    def check_person_id(self, id=-1):
+        if id <> -1:
             try:
-                person = Person.browsable.get(pk=person_id)
+                person = Person.browsable.get(pk=id)
             except Person.DoesNotExist:
                 pass
             else:
                 id = getattr(person, 'id', -1)
-                 
+        return id
+    
+    def pay_as_person(self, person_id):
+        id = self.check_person_id(person_id)
         self.checkout_session._set('payment', 'person', id)
         
     def get_person_id(self):
         return self.checkout_session._get('payment', 'person')
+
+    def save_found_person_id(self, person_id):
+        id = self.check_person_id(person_id)
+        self.checkout_session._set('payment', 'person_found', id)
+    
+    def get_found_person_id(self):
+        return self.checkout_session._get('payment', 'person_found')
+ 
+    def already_registered(self, person, user):
+        # TODO: move it to Person model
+        return user in person.users.all()
+
+    def link_user(self, request, person=None):
+        if person is None:
+            id = self.check_person_id(self.get_found_person_id())
+            if id <> -1:
+                person = Person.browsable.get(pk=id)
+            else:
+                # cant link user as selected person is user (id=-1)
+                return id
+        if not self.already_registered(person, request.user):
+            person.users.add(request.user)
+            person.save()
+        return person 
     
     def set_invoice_order(self, order):
         # assigns an order to an invoice 
@@ -71,4 +97,4 @@ class CheckoutSessionMixin(object):
                 logger.error("Order #%s: cant find fulfillment partner for invoice", order.number)
         
         return partner
-         
+    
