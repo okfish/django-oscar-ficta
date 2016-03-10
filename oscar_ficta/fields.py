@@ -2,7 +2,7 @@ import re
 
 from django.conf import settings
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from internationalflavor.vat_number import VATNumberField as OriginalVATNumberField
 from internationalflavor.vat_number import VATNumberFormField as OriginalVATNumberFormField
