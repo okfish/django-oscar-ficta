@@ -5,8 +5,6 @@ from django.forms.widgets import RadioSelect
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-#from django.db.models import Q, get_model
-
 from oscar.core.loading import get_classes, get_model
 
 from .widgets import PersonRemoteSelect
@@ -14,7 +12,8 @@ from .fields import VATNumberFormField
 
 countries = getattr(settings, 'OSCAR_FICTA_COUNTRIES', ['RU'])
 
-def get_user_persons(user):
+
+def get_persons_choices(user):
     """Returns juristic persons related to given user.
         TODO: add user themself as first person 
         to enable invoicing for a physical persons too
@@ -25,14 +24,10 @@ def get_user_persons(user):
     if not user.related_persons:
         return persons
     if len(user.related_persons.values_list()) > 0:
-        return persons + [ (p['id'], p['name']) for p in user.related_persons.values()]
+        return persons + [(p['id'], p['name']) for p in user.related_persons.values()]
     else:
         return persons
 
-def get_persons_qs(user):
-    Person = get_model('oscar_ficta', 'Person')
-    return Person.browsable.filter(users__exact=user)
-    
 
 class LegalAddressForm(modelforms.ModelForm):
 
@@ -40,21 +35,17 @@ class LegalAddressForm(modelforms.ModelForm):
         model = get_model('oscar_ficta', 'LegalAddress')
         exclude = ('title', 'first_name', 'last_name', 'search_text')
 
+
 class PersonForm(forms.Form):
     name = forms.CharField(label=_('Name or title'), max_length=200)
     vatin = VATNumberFormField(countries=countries, 
-                           label=_("VAT number"), 
-                           help_text=_("VAT or tax payer ID"))
+                               label=_("VAT number"),
+                               help_text=_("VAT or tax payer ID"))
     reason_code = forms.CharField(
         label=_("Code for Reason of registration, e.g. KPP in Russia"), 
         max_length=9, required=False)
-    
-    #class Meta:
-        #model = get_model('oscar_ficta', 'Person')
-        #fields = ('name', 'vatin', 'reason_code')
-        #exclude = ('code', 'users', 'partner', 'description', 'reference'
-        #           'date_created', 'date_updated', 'group')
-        
+
+
 class PersonSelectForm(forms.Form):
     
     person = forms.IntegerField(widget=forms.HiddenInput, required=False)
@@ -67,8 +58,8 @@ class PersonSelectForm(forms.Form):
         help_text = _("Persons assigned for the user")
         if 'for_user' in kwargs.keys():
             for_user = kwargs.pop('for_user')
-            widget=forms.HiddenInput
-            choices = get_user_persons(for_user)
+            widget = forms.HiddenInput
+            choices = get_persons_choices(for_user)
             if not choices is None and len(choices) > 0:
                 widget=RadioSelect
             else:
@@ -77,7 +68,7 @@ class PersonSelectForm(forms.Form):
         else:
             # if no user given renders Select2 widget 
             # full list of persons will be used
-            widget=PersonRemoteSelect
+            widget = PersonRemoteSelect
             label = _("All available persons")
             help_text = _("active juristic persons")
             
@@ -88,14 +79,13 @@ class PersonSelectForm(forms.Form):
         
         if for_user:
             self.fields['person'] = forms.ChoiceField(label=label,
-                                #queryset=get_persons_qs(for_user),
-                                initial = default_person,
-                                required=False,
-                                choices=choices,
-                                widget=widget,
-                                help_text=help_text)
+                                                      initial=default_person,
+                                                      required=False,
+                                                      choices=choices,
+                                                      widget=widget,
+                                                      help_text=help_text)
         else:
             
             self.fields['person'] = forms.CharField(label=label,
-                                widget=widget,
-                                help_text=help_text)
+                                                    widget=widget,
+                                                    help_text=help_text)
