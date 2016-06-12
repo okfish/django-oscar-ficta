@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-24 02:40+0300\n"
+"POT-Creation-Date: 2016-06-12 20:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Oleg Rybkin aka Fish <okfish@yandex.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,16 +59,16 @@ msgid "Liquidated"
 msgstr "Ликвидировано"
 
 #: abstract_models.py:100 dashboard/forms.py:31 dashboard/forms.py:150
-#: forms.py:46 templates/oscar_ficta/dashboard/invoice_list.html:120
+#: forms.py:42 templates/oscar_ficta/dashboard/invoice_list.html:120
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:25
 msgid "VAT number"
 msgstr "ИНН"
 
-#: abstract_models.py:101 forms.py:47
+#: abstract_models.py:101 forms.py:43
 msgid "VAT or tax payer ID"
 msgstr "Индивидуальный номер налогоплательщика"
 
-#: abstract_models.py:103 forms.py:49
+#: abstract_models.py:103 forms.py:45
 msgid "Code for Reason of registration, e.g. KPP in Russia"
 msgstr "КПП"
 
@@ -277,7 +277,6 @@ msgid "Date from"
 msgstr "Размещенные с"
 
 #: dashboard/forms.py:147
-
 msgid "Date to"
 msgstr "Размещенные до"
 
@@ -298,6 +297,7 @@ msgid "Number of child categories"
 msgstr "Кол-во дочерних групп"
 
 #: dashboard/tables.py:29
+#, python-format
 msgid "%s Group"
 msgid_plural "%s Groups"
 msgstr[0] "Группа %s"
@@ -385,36 +385,43 @@ msgid "Group deleted successfully"
 msgstr ""
 
 #: dashboard/views.py:569
+#, python-brace-format
 msgid "Invoice number starts with \"{invoice_number}\""
 msgstr ""
 
 #: dashboard/views.py:576
+#, python-brace-format
 msgid "Customer name matches \"{customer_name}\""
 msgstr ""
 
 #: dashboard/views.py:582
+#, python-brace-format
 msgid "Juristic person matches \"{person_name}\""
 msgstr ""
 
 #. Translators: This string refers to orders in an online
 #. store that were made within a particular date range.
 #: dashboard/views.py:590
+#, python-brace-format
 msgid "Placed between {start_date} and {end_date}"
 msgstr ""
 
 #. Translators: This string refers to orders in an online store
 #. that were made after a particular date.
 #: dashboard/views.py:600
+#, python-brace-format
 msgid "Placed after {start_date}"
 msgstr ""
 
 #. Translators: This string refers to orders in an online store
 #. that were made before a particular date.
 #: dashboard/views.py:609
+#, python-brace-format
 msgid "Placed before {end_date}"
 msgstr ""
 
 #: dashboard/views.py:614
+#, python-brace-format
 msgid "Juristic person VAT number matches \"{vatin}\""
 msgstr ""
 
@@ -422,6 +429,7 @@ msgstr ""
 #. online store.  Some examples of order status are
 #. "purchased", "cancelled", or "refunded".
 #: dashboard/views.py:624
+#, python-brace-format
 msgid "Invoice status is {invoice_status}"
 msgstr ""
 
@@ -493,27 +501,27 @@ msgstr ""
 msgid "An International Bank Code"
 msgstr "Международный банковский код"
 
-#: forms.py:44
+#: forms.py:40
 msgid "Name or title"
 msgstr "Название компании или имя предпринимателя"
 
-#: forms.py:66
+#: forms.py:57
 msgid "Available juristic persons"
 msgstr "Доступные юридические лица"
 
-#: forms.py:67
+#: forms.py:58
 msgid "Persons assigned for the user"
 msgstr "Юр.лица, доступные пользователю"
 
-#: forms.py:75
+#: forms.py:66
 msgid "No juristic persons found"
 msgstr "Юридических лиц не найдено"
 
-#: forms.py:81
+#: forms.py:72
 msgid "All available persons"
 msgstr "Все доступные юр.лица"
 
-#: forms.py:82
+#: forms.py:73
 msgid "active juristic persons"
 msgstr "активные юридические лица"
 
@@ -595,6 +603,51 @@ msgstr "Невозможно сохранить счет для заказа №
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "%(verbose_name)s не найдены по запросу"
+
+#: templates/customer/emails/commtype_invoice_sent_body.html:4
+#: templates/customer/emails/commtype_invoice_sent_body.txt:3
+msgid "Hello,"
+msgstr ""
+
+#: templates/customer/emails/commtype_invoice_sent_body.html:5
+#, python-format
+msgid ""
+"We are pleased to send your invoice %(invoice_number)s for order "
+"%(order.number)s.<br>\n"
+"    Hopes, it will be paid shortly."
+msgstr ""
+
+#: templates/customer/emails/commtype_invoice_sent_body.html:8
+#, python-format
+msgid ""
+"You can view and print your invoice by clicking <a href=\"%(print_url)s\" "
+"title=\"print invoice\">here</a>"
+msgstr ""
+
+#: templates/customer/emails/commtype_invoice_sent_body.html:10
+#: templates/customer/emails/commtype_invoice_sent_body.txt:9
+msgid "Your invoice:"
+msgstr ""
+
+#: templates/customer/emails/commtype_invoice_sent_body.txt:4
+#, python-format
+msgid ""
+"We are pleased to send your invoice %(invoice_number)s for order "
+"%(order.number)s.\n"
+"Hopes, it will be paid shortly."
+msgstr ""
+
+#: templates/customer/emails/commtype_invoice_sent_body.txt:7
+#, python-format
+msgid ""
+"You can view and print your invoice on the site, please, visit %(print_url)s"
+msgstr ""
+
+#: templates/customer/emails/commtype_invoice_sent_subject.txt:1
+#, fuzzy, python-format
+#| msgid "Can't save invoice for order #%s"
+msgid "Invoice #%(invoice_number)s for order #%(number)s"
+msgstr "Невозможно сохранить счет для заказа №%s"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:9
 #: templates/oscar_ficta/dashboard/group_form.html:14
