@@ -1,0 +1,32 @@
+{% load smart_load %}
+{% load currency_filters from oscar %}
+Внимание! Оплата данного счета означает согласие с условиями поставки товара. Уведомление об оплате  обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту прихода денег на р/с Поставщика, самовывозом, при наличии доверенности и паспорта.
+
+Образец заполнения платежного поручения:
+
+Банк получателя: {{ invoice.partner_person.bank_accounts.all.0.bank|safe }}
+    БИK: {{ invoice.partner_person.bank_accounts.all.0.bank.bic }}
+    Корр. сч. № {{ invoice.partner_person.bank_accounts.all.0.bank.correspondent_account }}
+    ИНН:{{ invoice.partner_person.bank_accounts.all.0.bank.person.vatin }}/КПП:{{ invoice.partner_person.bank_accounts.all.0.bank.person.reason_code }}
+
+Расч. сч. № {{ invoice.partner_person.bank_accounts.all.0.settlement_account }}
+Получатель: {{ invoice.partner_person|safe }}
+
+    СЧЕТ № {{ invoice.number }} от {{ invoice.date_updated|date:"SHORT_DATE_FORMAT" }}
+
+Поставщик: {{ invoice.partner_person|safe }}, ИНН {{ invoice.partner_person.vatin }}, КПП {{ invoice.partner_person.reason_code }}
+адрес: {{ invoice.partner_person.legal_address }}
+
+Покупатель: {%  if invoice.person %} {{ invoice.person|safe }}, ИНН {{ invoice.person.vatin }}, КПП {{ invoice.person.reason_code }},
+адрес: {{ invoice.person.legal_address }}{% else %}{{ invoice.user.get_full_name }}({{ invoice.user.email }}){% endif %}
+-----------------------------------------------------------------------------------------------------------------------
+№  |  Код               | Товар                                            |Кол-во| Ед. | Цена        | Сумма
+-----------------------------------------------------------------------------------------------------------------------
+{% for line in invoice.order.lines.all %}{{ forloop.counter|ljust:"3" }}|{{ line.upc|default:"-"|ljust:"20" }}|{{ line.title|truncatechars:49|ljust:"50" }}|{{ line.quantity|ljust:"6" }}| шт. | {{ line.unit_price_incl_tax|currency:invoice.order.currency|ljust:"12" }}| {{ line.line_price_incl_tax|currency:invoice.order.currency|ljust:"14" }}
+{% if forloop.last and invoice.order.shipping_incl_tax > 0 %}{{ forloop.counter|add:"1"|ljust:"3" }}|-                   | Доставка                                         |      |     | {{ invoice.order.shipping_incl_tax|currency:invoice.order.currency|ljust:"12" }}| {{ invoice.order.shipping_incl_tax|currency:invoice.order.currency|ljust:"14" }}{% endif %}{% endfor %}
+-----------------------------------------------------------------------------------------------------------------------
+Итого: {{ invoice.order.total_incl_tax|currency:invoice.order.currency }} В том числе НДС: НДС не облагается
+
+Всего наименований {{ forloop.counter }} на сумму {{ invoice.order.total_incl_tax|currency:invoice.order.currency }}
+
+Счет действителен к оплате в течении трех дней.
