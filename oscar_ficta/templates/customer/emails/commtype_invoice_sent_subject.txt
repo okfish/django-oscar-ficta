@@ -1,0 +1,1 @@
+{% load i18n %}[{{ shop_name }}] {% blocktrans with number=order.number invoice_number=invoice.number %}Invoice #{{ invoice_number }} for order #{{ number }}{% endblocktrans %}

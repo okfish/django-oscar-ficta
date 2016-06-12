@@ -1,0 +1,15 @@
+{% extends "customer/emails/base.html" %}
+{% load currency_filters i18n %}
+
+{% block body %}<p xmlns="http://www.w3.org/1999/html">{% trans 'Hello,' %}{{ user.username }}</p>
+<p>{% blocktrans with invoice_number=invoice.number %}We are pleased to send your invoice {{ invoice_number }} for order {{ order.number }}.<br>
+    Hopes, it will be paid shortly.{% endblocktrans %}</p>
+{% if print_url %}
+<p>{% blocktrans %}You can view and print your invoice by clicking <a href="{{ print_url }}" title="print invoice">here</a>{% endblocktrans %}</p>
+{% endif %}
+<p>{% trans 'Your invoice:' %}</p>
+<hr>
+{% include "oscar_ficta/invoice/ru/partials/print_table.html" %}
+{% endblock body %}
+
+

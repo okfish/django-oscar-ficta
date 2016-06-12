@@ -1,0 +1,10 @@
+{% extends "customer/emails/base.html" %}
+{% load i18n %}
+{% block body %}{% trans 'Hello,' %}{{ user.username }}
+{% blocktrans with invoice_number=invoice.number %}We are pleased to send your invoice {{ invoice_number }} for order {{ order.number }}.
+Hopes, it will be paid shortly.{% endblocktrans %}
+{% if print_url %}
+{% blocktrans %}You can view and print your invoice on the site, please, visit {{ print_url }}{% endblocktrans %}
+{% endif %}
+{% trans 'Your invoice:' %}
+{% include "oscar_ficta/invoice/ru/partials/print_table.txt" %}{% endblock body %}
