@@ -15,6 +15,87 @@ Invoice = get_model('invoice', 'Invoice')
 logger = logging.getLogger('oscar.checkout')
 
 
+class SessionData(object):
+    """
+    Responsible for marshalling all the site-wide session data
+
+    Proudly grabbed from original oscar.apps.checkout.utils CheckoutSessionData
+    """
+    # TODO: it would be better to split original class into base and ancestors for checkout etc,
+    #       but it requires correct PR for django-oscar
+
+    SESSION_KEY = 'site_data'
+
+    def __init__(self, request):
+        self.request = request
+        if self.SESSION_KEY not in self.request.session:
+            self.request.session[self.SESSION_KEY] = {}
+
+    def _check_namespace(self, namespace):
+        """
+        Ensure a namespace within the session dict is initialised
+        """
+        if namespace not in self.request.session[self.SESSION_KEY]:
+            self.request.session[self.SESSION_KEY][namespace] = {}
+
+    def _get(self, namespace, key, default=None):
+        """
+        Return a value from within a namespace
+        """
+        self._check_namespace(namespace)
+        if key in self.request.session[self.SESSION_KEY][namespace]:
+            return self.request.session[self.SESSION_KEY][namespace][key]
+        return default
+
+    def _set(self, namespace, key, value):
+        """
+        Set a namespaced value
+        """
+        self._check_namespace(namespace)
+        self.request.session[self.SESSION_KEY][namespace][key] = value
+        self.request.session.modified = True
+
+    def _unset(self, namespace, key):
+        """
+        Remove a namespaced value
+        """
+        self._check_namespace(namespace)
+        if key in self.request.session[self.SESSION_KEY][namespace]:
+            del self.request.session[self.SESSION_KEY][namespace][key]
+            self.request.session.modified = True
+
+    def _flush_namespace(self, namespace):
+        """
+        Flush a namespace
+        """
+        self.request.session[self.SESSION_KEY][namespace] = {}
+        self.request.session.modified = True
+
+    def flush(self):
+        """
+        Flush all session data
+        """
+        self.request.session[self.SESSION_KEY] = {}
+
+
+class FictaSessionData(SessionData):
+
+    def pay_as_person(self, person_id):
+        self._set('payment', 'person', person_id)
+
+    def get_person_id(self):
+        return self._get('payment', 'person')
+
+    def save_found_person_id(self, person_id):
+        self._set('payment', 'person_found', person_id)
+
+    def get_found_person_id(self):
+        return self._get('payment', 'person_found')
+
+    def save_invoice_number(self, number):
+        self._set('payment', 'invoice', number)
+
+
 class CheckoutSessionMixin(object):
     """some helpers for managing juristic persons during checkout
     """
@@ -28,22 +109,29 @@ class CheckoutSessionMixin(object):
             else:
                 id = getattr(person, 'id', -1)
         return id
-    
+
+    def get_session(self):
+        return self.user_session \
+               or get_class('user.session', 'UserSessionData')(self.request) \
+               or FictaSessionData(self.request)
+
     def pay_as_person(self, person_id):
         id = self.check_person_id(person_id)
-        # TODO: current person must be stored in the different place as checkout session data cleared
-        self.checkout_session._set('payment', 'person', id)
-        
+
+        # trying to use site-wide session instead of checkout one
+        # which will be flushed after order placement
+        self.get_session().pay_as_person(id)
+
     def get_person_id(self):
-        return self.checkout_session._get('payment', 'person')
+        return self.get_session().get_person_id()
 
     def save_found_person_id(self, person_id):
         id = self.check_person_id(person_id)
-        self.checkout_session._set('payment', 'person_found', id)
-    
+        self.get_session().save_found_person_id(person_id)
+
     def get_found_person_id(self):
-        return self.checkout_session._get('payment', 'person_found')
- 
+        return self.get_session().get_found_person_id()
+
     def already_registered(self, person, user):
         # TODO: move it to Person model
         return user in person.users.all()
@@ -85,7 +173,7 @@ class CheckoutSessionMixin(object):
             invoice.order = order
             invoice.status = invoice.NEW
             invoice.save()
-            self.checkout_session._set('payment', 'invoice', invoice.number)
+            self.get_session().save_invoice_number(invoice.number)
 
             ctx = {
                 'shop_name': settings.OSCAR_SHOP_NAME,

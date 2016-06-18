@@ -1,7 +1,12 @@
 from oscar.core.loading import get_class, get_model
+from oscar.core.exceptions import (
+    AppNotFoundError, ClassNotFoundError, ModuleNotFoundError)
 
-CheckoutSessionData = get_class(
-    'checkout.utils', 'CheckoutSessionData')
+try:
+    UserSessionData = get_class(
+        'user.session', 'UserSessionData')
+except (ImportError, AppNotFoundError, ClassNotFoundError, ModuleNotFoundError):
+    from .checkout.session import FictaSessionData as UserSessionData
 
 Person = get_model('oscar_ficta', 'Person')
 
@@ -10,8 +15,8 @@ def current_person(request):
     ctx = {}
     if getattr(request, 'user', None) and request.user.is_authenticated():
         user = request.user
-        checkout_session = CheckoutSessionData(request)
-        person_id = checkout_session._get('payment', 'person')
+        user_session = UserSessionData(request)
+        person_id = user_session.get_person_id()
         if person_id == -1:
             person = -1
         # current_person is None when no linked persons found
