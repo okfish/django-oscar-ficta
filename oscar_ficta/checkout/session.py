@@ -4,6 +4,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from oscar.core.loading import get_class, get_model
+from oscar.core.exceptions import (
+    AppNotFoundError, ClassNotFoundError, ModuleNotFoundError)
 
 Dispatcher = get_class('customer.utils', 'Dispatcher')
 CommunicationEventType = get_model('customer', 'CommunicationEventType')
@@ -111,9 +113,13 @@ class CheckoutSessionMixin(object):
         return id
 
     def get_session(self):
-        return self.user_session \
-               or get_class('user.session', 'UserSessionData')(self.request) \
-               or FictaSessionData(self.request)
+        if hasattr(self, 'user_session'):
+            return self.user_session
+        else:
+            try:
+                return get_class('user.session', 'UserSessionData')(self.request)
+            except (ImportError, AppNotFoundError, ClassNotFoundError, ModuleNotFoundError):
+                return FictaSessionData(self.request)
 
     def pay_as_person(self, person_id):
         id = self.check_person_id(person_id)
