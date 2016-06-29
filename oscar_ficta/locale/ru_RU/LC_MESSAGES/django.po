@@ -506,20 +506,19 @@ msgid "Name or title"
 msgstr "Название компании или имя предпринимателя"
 
 #: forms.py:57
-msgid "Available juristic persons"
-msgstr "Доступные юридические лица"
-
+msgid "Juristic persons list"
+msgstr "Список контрагентов "
 #: forms.py:58
-msgid "Persons assigned for the user"
-msgstr "Юр.лица, доступные пользователю"
+msgid "Select a company from the list or add a new"
+msgstr "Выберите контрагента из списка или добавьте нового"
 
 #: forms.py:66
 msgid "No juristic persons found"
-msgstr "Юридических лиц не найдено"
+msgstr "Юридические лица не найдены"
 
 #: forms.py:72
 msgid "All available persons"
-msgstr "Все доступные юр.лица"
+msgstr "Все доступные контрагенты"
 
 #: forms.py:73
 msgid "active juristic persons"
