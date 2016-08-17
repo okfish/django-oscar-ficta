@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Oleg Rybkin aka Fish <okfish@yandex.ru>, 2015.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 20:54+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Oleg Rybkin aka Fish <okfish@yandex.ru>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: russian\n"
+"POT-Creation-Date: 2016-08-17 19:14+0300\n"
+"PO-Revision-Date: 2016-08-17 20:13+0300\n"
+"Last-Translator: wa3x <wa3x@yandex.ru>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: abstract_models.py:62 abstract_models.py:157
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:29
@@ -207,8 +209,7 @@ msgstr "Использовать по-умолчанию?"
 msgid "Bank account"
 msgstr "Банковский счет"
 
-#: abstract_models.py:224
-#: templates/oscar_ficta/dashboard/person_detail.html:42
+#: abstract_models.py:224 templates/oscar_ficta/dashboard/person_detail.html:42
 msgid "Bank accounts"
 msgstr "Банковские счета"
 
@@ -265,8 +266,7 @@ msgstr "Имя клиента"
 msgid "Juristic person name"
 msgstr "Название юридического лица"
 
-#: dashboard/forms.py:141
-#: templates/oscar_ficta/dashboard/invoice_list.html:122
+#: dashboard/forms.py:141 templates/oscar_ficta/dashboard/invoice_list.html:122
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:21
 #: templates/oscar_ficta/dashboard/person_detail.html:77
 msgid "Status"
@@ -300,8 +300,9 @@ msgstr "Кол-во дочерних групп"
 #, python-format
 msgid "%s Group"
 msgid_plural "%s Groups"
-msgstr[0] "Группа %s"
-msgstr[1] "Группы %s"
+msgstr[0] "%s Группа"
+msgstr[1] "%s Группы"
+msgstr[2] "%s Групп"
 
 #: dashboard/views.py:86
 msgid "All juristic persons"
@@ -334,7 +335,7 @@ msgstr ""
 #: dashboard/views.py:198
 #, python-format
 msgid "Update '%s'"
-msgstr ""
+msgstr "Обновить '%s'"
 
 #: dashboard/views.py:258
 #, python-format
@@ -365,63 +366,56 @@ msgstr "Юридическое лицо активно"
 
 #: dashboard/views.py:404
 msgid "Add a new group"
-msgstr ""
+msgstr "Добавить новую группу"
 
 #: dashboard/views.py:408
 msgid "Group created successfully"
-msgstr ""
+msgstr "Группа успешно создана"
 
 #: dashboard/views.py:426
 #, python-format
 msgid "Update group '%s'"
-msgstr ""
+msgstr "Обновить группу '%s'"
 
 #: dashboard/views.py:430
 msgid "Group updated successfully"
-msgstr ""
+msgstr "Группа успешно обновлена"
 
 #: dashboard/views.py:444
 msgid "Group deleted successfully"
-msgstr ""
+msgstr "Группа успешно удалена"
 
 #: dashboard/views.py:569
-#, python-brace-format
 msgid "Invoice number starts with \"{invoice_number}\""
 msgstr ""
 
 #: dashboard/views.py:576
-#, python-brace-format
 msgid "Customer name matches \"{customer_name}\""
 msgstr ""
 
 #: dashboard/views.py:582
-#, python-brace-format
 msgid "Juristic person matches \"{person_name}\""
 msgstr ""
 
 #. Translators: This string refers to orders in an online
 #. store that were made within a particular date range.
 #: dashboard/views.py:590
-#, python-brace-format
 msgid "Placed between {start_date} and {end_date}"
-msgstr ""
+msgstr "Размещено с {start_date} по {end_date}"
 
 #. Translators: This string refers to orders in an online store
 #. that were made after a particular date.
 #: dashboard/views.py:600
-#, python-brace-format
 msgid "Placed after {start_date}"
-msgstr ""
+msgstr "размещено после {start_date}"
 
 #. Translators: This string refers to orders in an online store
 #. that were made before a particular date.
 #: dashboard/views.py:609
-#, python-brace-format
 msgid "Placed before {end_date}"
-msgstr ""
+msgstr "Размещено до {end_date}"
 
 #: dashboard/views.py:614
-#, python-brace-format
 msgid "Juristic person VAT number matches \"{vatin}\""
 msgstr ""
 
@@ -429,27 +423,22 @@ msgstr ""
 #. online store.  Some examples of order status are
 #. "purchased", "cancelled", or "refunded".
 #: dashboard/views.py:624
-#, python-brace-format
 msgid "Invoice status is {invoice_status}"
 msgstr ""
 
 #: dashboard/views.py:661
-#, fuzzy
-#| msgid "Invoice status"
 msgid "Invoice value"
-msgstr "Статус счета"
-
-#: dashboard/views.py:662
-#: templates/oscar_ficta/dashboard/invoice_list.html:124
-msgid "Date of purchase"
 msgstr ""
+
+#: dashboard/views.py:662 templates/oscar_ficta/dashboard/invoice_list.html:124
+msgid "Date of purchase"
+msgstr "Дата покупки"
 
 #: dashboard/views.py:663 invoice/abstract_models.py:48
 msgid "Order number"
 msgstr "Номер счета"
 
-#: dashboard/views.py:664
-#: templates/oscar_ficta/dashboard/invoice_list.html:121
+#: dashboard/views.py:664 templates/oscar_ficta/dashboard/invoice_list.html:121
 msgid "Number of items"
 msgstr ""
 
@@ -458,26 +447,18 @@ msgid "Invoice status"
 msgstr "Статус счета"
 
 #: dashboard/views.py:666
-#, fuzzy
-#| msgid "Legal address"
 msgid "Customer email address"
-msgstr "Юридический адрес"
+msgstr "Адрес электронной почты клиента"
 
 #: dashboard/views.py:667
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Pay as juristic person"
-msgstr "Юридическое лицо"
+msgstr "Оплатить как Юридическое лицо"
 
 #: dashboard/views.py:668
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Juristic person VAT number"
-msgstr "Юридическое лицо"
+msgstr "ИНН"
 
 #: dashboard/views.py:669
-#, fuzzy
-#| msgid "Code for Reason of registration, e.g. KPP in Russia"
 msgid "Juristic person code (e.g. KPP in Russia)"
 msgstr "КПП"
 
@@ -508,9 +489,15 @@ msgstr "Название компании или имя предпринимат
 #: forms.py:57
 msgid "Juristic persons list"
 msgstr "Список контрагентов "
+
 #: forms.py:58
-msgid "Select a company from the list or add a new"
-msgstr "Выберите контрагента из списка или добавьте нового"
+msgid ""
+"Select a company from the list or <a href='{% url 'customer:person-create' "
+"%}' data-toggle='tooltip' title='Create a new juristic person'>add a new</a>"
+msgstr ""
+"Выберите  плательщика из списка или добавьте <a href='{% url 'customer:"
+"person-create' %}' data-toggle='tooltip' title='Создать нового "
+"контрагента'>нового контрагента</a>"
 
 #: forms.py:66
 msgid "No juristic persons found"
@@ -606,7 +593,7 @@ msgstr "%(verbose_name)s не найдены по запросу"
 #: templates/customer/emails/commtype_invoice_sent_body.html:4
 #: templates/customer/emails/commtype_invoice_sent_body.txt:3
 msgid "Hello,"
-msgstr ""
+msgstr "Здравствуйте,"
 
 #: templates/customer/emails/commtype_invoice_sent_body.html:5
 #, python-format
@@ -626,7 +613,7 @@ msgstr ""
 #: templates/customer/emails/commtype_invoice_sent_body.html:10
 #: templates/customer/emails/commtype_invoice_sent_body.txt:9
 msgid "Your invoice:"
-msgstr ""
+msgstr "Номер счета:"
 
 #: templates/customer/emails/commtype_invoice_sent_body.txt:4
 #, python-format
@@ -643,10 +630,9 @@ msgid ""
 msgstr ""
 
 #: templates/customer/emails/commtype_invoice_sent_subject.txt:1
-#, fuzzy, python-format
-#| msgid "Can't save invoice for order #%s"
+#, python-format
 msgid "Invoice #%(invoice_number)s for order #%(number)s"
-msgstr "Невозможно сохранить счет для заказа №%s"
+msgstr "Счет #%(invoice_number)s к заказу #%(number)s"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:9
 #: templates/oscar_ficta/dashboard/group_form.html:14
@@ -659,20 +645,16 @@ msgstr "Невозможно сохранить счет для заказа №
 #: templates/oscar_ficta/dashboard/person_update_form.html:13
 #: templates/oscar_ficta/dashboard/persons_list.html:13
 msgid "Dashboard"
-msgstr ""
+msgstr "Панель управления"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:14
 #: templates/oscar_ficta/dashboard/group_delete.html:19
-#, fuzzy
-#| msgid "Deleted"
 msgid "Delete group?"
-msgstr "Удален"
+msgstr "Удалить группу?"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:24
-#, fuzzy
-#| msgid "Deleted"
 msgid "Delete group"
-msgstr "Удален"
+msgstr "Удалить группу"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:29
 #, python-format
@@ -684,14 +666,12 @@ msgstr ""
 
 #: templates/oscar_ficta/dashboard/group_delete.html:33
 msgid "Deleting..."
-msgstr ""
+msgstr "Удаление..."
 
 #: templates/oscar_ficta/dashboard/group_delete.html:33
 #: templates/oscar_ficta/dashboard/group_row_actions.html:32
-#, fuzzy
-#| msgid "Deleted"
 msgid "Delete"
-msgstr "Удален"
+msgstr "Удалить"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:34
 #: templates/oscar_ficta/dashboard/person_form.html:36
@@ -699,62 +679,58 @@ msgstr "Удален"
 #: templates/oscar_ficta/dashboard/person_update_form.html:110
 #: templates/oscar_ficta/dashboard/persons_list.html:41
 msgid "or"
-msgstr ""
+msgstr "или"
 
 #: templates/oscar_ficta/dashboard/group_delete.html:34
 #: templates/oscar_ficta/dashboard/person_form.html:37
 #: templates/oscar_ficta/dashboard/person_freeze.html:37
 #: templates/oscar_ficta/dashboard/person_update_form.html:111
 msgid "cancel"
-msgstr ""
+msgstr "отменить"
 
 #: templates/oscar_ficta/dashboard/group_list.html:23
 msgid "Create new group"
-msgstr ""
+msgstr "Добавить новую группу"
 
 #: templates/oscar_ficta/dashboard/group_list.html:30
 msgid "You are editing:"
-msgstr ""
+msgstr "Вы редактируете:"
 
 #: templates/oscar_ficta/dashboard/group_list.html:31
 msgid "Home"
-msgstr ""
+msgstr "Начало"
 
 #: templates/oscar_ficta/dashboard/group_list.html:44
 msgid "There are no categories."
-msgstr ""
+msgstr "Категорий нет."
 
 #: templates/oscar_ficta/dashboard/group_row_actions.html:6
 #: templates/oscar_ficta/dashboard/persons_list.html:58
-#, fuzzy
-#| msgid "Location"
 msgid "Actions"
-msgstr "Расположение"
+msgstr "Действия"
 
 #: templates/oscar_ficta/dashboard/group_row_actions.html:12
 msgid "Edit group"
-msgstr ""
+msgstr "Изменить группу"
 
 #: templates/oscar_ficta/dashboard/group_row_actions.html:17
 msgid "Add child group"
-msgstr ""
+msgstr "Добавить подгруппу"
 
 #: templates/oscar_ficta/dashboard/group_row_actions.html:22
 msgid "Edit children"
-msgstr ""
+msgstr "Изменить подгруппу"
 
 #: templates/oscar_ficta/dashboard/group_row_actions.html:27
 msgid "View group"
-msgstr ""
+msgstr "Показать группу"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:10
 #: templates/oscar_ficta/dashboard/invoice_list.html:18
 #: templates/oscar_ficta/dashboard/invoice_list.html:24
 #: templates/oscar_ficta/dashboard/person_detail.html:67
-#, fuzzy
-#| msgid "Invoice sent"
 msgid "Invoices"
-msgstr "Выслан"
+msgstr "Счета"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:30
 #: templates/oscar_ficta/dashboard/invoice_list.html:51
@@ -762,179 +738,155 @@ msgstr "Выслан"
 #: templates/oscar_ficta/dashboard/persons_list.html:35
 #: templates/oscar_ficta/dashboard/persons_list.html:40
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:52
 #: templates/oscar_ficta/dashboard/invoice_list.html:61
 msgid "Advanced Search"
-msgstr ""
+msgstr "Расширенный поиск"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:72
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:73
 msgid "Searching..."
-msgstr ""
+msgstr "Поиск..."
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:101
 #: templates/oscar_ficta/dashboard/invoice_list.html:184
-#, fuzzy
-#| msgid "Invoice status"
 msgid "Invoice Search Results"
-msgstr "Статус счета"
+msgstr "Результаты поиска по счетам"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:103
 #: templates/oscar_ficta/dashboard/invoice_list.html:186
-#, fuzzy
-#| msgid "Invoice sent"
 msgid "All Invoices"
-msgstr "Выслан"
+msgstr "Все Счета"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:108
 msgid "Download selected invoices as a CSV"
-msgstr ""
+msgstr "Скачать выбранные заказы в формате CSV"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:109
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:6
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:27
 msgid "Submitting..."
-msgstr ""
+msgstr "Отправка..."
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:109
 msgid "Download"
-msgstr ""
+msgstr "Скачать"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:118
-#, fuzzy
-#| msgid "Order total (inc. tax)"
 msgid "Total inc tax"
-msgstr "Итого (вкл. налоги)"
+msgstr "Итого"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:119
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Jur. person"
-msgstr "Юридическое лицо"
+msgstr "Юр. лицо"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:123
 msgid "Customer"
-msgstr ""
+msgstr "Клиент"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:149
 msgid "View"
-msgstr ""
+msgstr "Просмотр"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:158
-#, fuzzy
-#| msgid "Invoice status"
 msgid "Change invoice status"
-msgstr "Статус счета"
+msgstr "Изменить статус счета"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:163
 msgid "choose new status"
-msgstr ""
+msgstr "выбрать новый статус"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:170
 msgid "Changing..."
-msgstr ""
+msgstr "Изменение..."
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:170
-#, fuzzy
-#| msgid "State status"
 msgid "Change status"
-msgstr "Статус юр.лица"
+msgstr "Изменить статус"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:172
 msgid "This invoice can't have its status changed."
 msgstr ""
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:189
-#, fuzzy
-#| msgid "No juristic persons found"
 msgid "No invoices found."
-msgstr "Юридических лиц не найдено"
+msgstr "Счета не найдены."
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:6
 msgid "Print batch of invoices"
-msgstr ""
+msgstr "Распечатать счета"
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:10
 msgid "Mark as"
-msgstr ""
+msgstr "Пометить как"
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:15
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:20
-#, fuzzy
-#| msgid "Invoice status"
 msgid "Change invoice status to"
-msgstr "Статус счета"
+msgstr "Изменить статус счета на"
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:26
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:27
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:33
 msgid "Director"
-msgstr ""
+msgstr "Директор"
 
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:41
-#, fuzzy
-#| msgid "Active"
 msgid "Active?"
-msgstr "Действующее"
+msgstr ""
 
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:48
 msgid "Num users"
 msgstr ""
 
 #: templates/oscar_ficta/dashboard/person_detail.html:7
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Juristic  person"
 msgstr "Юридическое лицо"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:34
 #: templates/oscar_ficta/dashboard/persons_list.html:69
 msgid "Edit"
-msgstr ""
+msgstr "Изменить"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:36
 #: templates/oscar_ficta/dashboard/person_freeze.html:24
 #: templates/oscar_ficta/dashboard/person_freeze.html:36
 #: templates/oscar_ficta/dashboard/persons_list.html:73
 msgid "Freeze"
-msgstr ""
+msgstr "Приостановить"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:38
 #: templates/oscar_ficta/dashboard/person_enable.html:31
 #: templates/oscar_ficta/dashboard/persons_list.html:75
 msgid "Enable"
-msgstr ""
+msgstr "Включить"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:48
 msgid "Settlement"
-msgstr ""
+msgstr "Населенный пункт"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:49
 msgid "Default?"
-msgstr ""
+msgstr "По-умолчанию?"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:64
-#, fuzzy
-#| msgid "Bank accounts"
 msgid "No accounts."
-msgstr "Банковские счета"
+msgstr "Нет счетов."
 
 #: templates/oscar_ficta/dashboard/person_detail.html:72
-#, fuzzy
-#| msgid "VAT number"
 msgid "Number"
-msgstr "ИНН"
+msgstr ""
 
 #: templates/oscar_ficta/dashboard/person_detail.html:73
 msgid "Amount"
@@ -942,131 +894,109 @@ msgstr ""
 
 #: templates/oscar_ficta/dashboard/person_detail.html:75
 msgid "Created by"
-msgstr ""
+msgstr "Создал"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:76
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:95
 msgid "No invoices."
-msgstr ""
+msgstr "Нет счетов."
 
 #: templates/oscar_ficta/dashboard/person_enable.html:7
 #: templates/oscar_ficta/dashboard/person_enable.html:20
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Enable Juristic person"
-msgstr "Юридическое лицо"
+msgstr "Включить Юр. лицо"
 
 #: templates/oscar_ficta/dashboard/person_enable.html:24
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Enable Juristic person?"
-msgstr "Юридическое лицо"
+msgstr "Включить Юридическое лицо?"
 
 #: templates/oscar_ficta/dashboard/person_form.html:20
 #: templates/oscar_ficta/dashboard/person_update_form.html:27
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: templates/oscar_ficta/dashboard/person_form.html:35
 #: templates/oscar_ficta/dashboard/person_update_form.html:109
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: templates/oscar_ficta/dashboard/person_freeze.html:7
 #, python-format
 msgid "Freeze account %(id)s"
-msgstr ""
+msgstr "Приостановить аккаунт %(id)s"
 
 #: templates/oscar_ficta/dashboard/person_freeze.html:28
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Freeze this Juristic person?"
-msgstr "Юридическое лицо"
+msgstr "Приостановить использование Юр. лица?"
 
 #: templates/oscar_ficta/dashboard/person_update_form.html:25
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: templates/oscar_ficta/dashboard/person_update_form.html:38
-#, fuzzy
-#| msgid "Juristic person"
 msgid "Edit this Juristic Person"
-msgstr "Юридическое лицо"
+msgstr "Изменить Юридическое лицо"
 
 #: templates/oscar_ficta/dashboard/person_update_form.html:47
-#, fuzzy
-#| msgid "Legal address"
 msgid "Legal Address"
 msgstr "Юридический адрес"
 
 #: templates/oscar_ficta/dashboard/person_update_form.html:70
-#, fuzzy
-#| msgid "Bank accounts"
 msgid "Bank Accounts"
 msgstr "Банковские счета"
 
 #: templates/oscar_ficta/dashboard/person_update_form.html:87
 msgid "Add a Bank"
-msgstr ""
+msgstr "Добавть Банк"
 
 #: templates/oscar_ficta/dashboard/person_update_form.html:90
-#, fuzzy
-#| msgid "Bank"
 msgid "New Bank"
-msgstr "Банк"
+msgstr "Новый Банк"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:17
-#, fuzzy
-#| msgid "Choose counter-agent"
 msgid "Counter-agents"
-msgstr "Выберите контр-агента"
+msgstr "Контрагенты"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:26
-#, fuzzy
-#| msgid "active juristic persons"
 msgid "Create a new juristic person"
-msgstr "активные юридические лица"
+msgstr "Добавить юр. лицо"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:41
 msgid "reset"
-msgstr ""
+msgstr "сброс"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:53
 msgid "VATIN"
-msgstr ""
+msgstr "ИНН"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:56
 msgid "Num invoices"
-msgstr ""
+msgstr "Кол-во счетов"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:71
-#, fuzzy
-#| msgid "Order"
 msgid "Orders"
-msgstr "Счет"
+msgstr "Заказы"
 
 #: templates/oscar_ficta/dashboard/persons_list.html:84
-#, fuzzy
-#| msgid "No juristic persons found"
 msgid "No results found."
-msgstr "Юридических лиц не найдено"
+msgstr "Ничего не найдено."
 
 #: templates/oscar_ficta/partials/person_select.html:5
 msgid "Choose counter-agent"
 msgstr "Выберите контр-агента"
 
-#: templates/oscar_ficta/partials/person_select.html:19
+#: templates/oscar_ficta/partials/person_select.html:18
 msgid "This company pays always!"
 msgstr "Эта компания заплатит всегда!"
 
-#: templates/oscar_ficta/partials/person_select.html:23
+#: templates/oscar_ficta/partials/person_select.html:22
 msgid "create another one!"
 msgstr "создать новое юр.лицо"
 
-#: templates/oscar_ficta/partials/person_select.html:37
+#: templates/oscar_ficta/partials/person_select.html:36
 msgid "Save and go on!"
 msgstr "Сохранить и продолжить"
 
@@ -1086,3 +1016,6 @@ msgstr "Неверный номер кредитной организации"
 #: views.py:46
 msgid "Available persons"
 msgstr "Доступные юр.лица"
+
+#~ msgid "Select a company from the list or add a new"
+#~ msgstr "Выберите контрагента из списка или добавьте нового"
