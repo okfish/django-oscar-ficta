@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-17 19:14+0300\n"
-"PO-Revision-Date: 2016-08-17 20:13+0300\n"
+"POT-Creation-Date: 2016-06-12 20:54+0300\n"
+"PO-Revision-Date: 2016-08-18 00:08+0300\n"
 "Last-Translator: wa3x <wa3x@yandex.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgstr "Директор или генеральный менеджер"
 
 #: abstract_models.py:133
 msgid "Title for GM or Director"
-msgstr "Титул директора или менеджера"
+msgstr "Обращение к директору или менеджеру"
 
 #: abstract_models.py:135
 msgid "Main Accountant name"
@@ -199,7 +199,7 @@ msgstr "IBAN"
 
 #: abstract_models.py:216
 msgid "Settlement account number"
-msgstr "Рассчетный счет"
+msgstr "Расчетный счет"
 
 #: abstract_models.py:219
 msgid "Use it by default?"
@@ -321,7 +321,7 @@ msgstr " с именем, соответствующим '%s'"
 #: dashboard/views.py:124
 #, python-format
 msgid " with VATIN '%s'"
-msgstr ""
+msgstr " с ИНН '%s'"
 
 #: dashboard/views.py:142
 msgid "Create a new Juristic Person"
@@ -330,7 +330,7 @@ msgstr "Добавить юр. лицо"
 #: dashboard/views.py:147
 #, python-format
 msgid "Juristic person '%s' was created successfully."
-msgstr ""
+msgstr "Юридическое лицо '%s' успешно добавлено."
 
 #: dashboard/views.py:198
 #, python-format
@@ -340,21 +340,22 @@ msgstr "Обновить '%s'"
 #: dashboard/views.py:258
 #, python-format
 msgid "Strange! Too many banks for this BIC %(bic)s"
-msgstr ""
+msgstr "Внимание! Этому БИК %(bic)s соответствуют несколько банков?"
 
 #: dashboard/views.py:263
 #, python-format
 msgid "New bank %(bank)s for person %(person)s saved"
-msgstr ""
+msgstr "Банк %(bank)s успешно добавлен клиенту  %(person)s"
 
 #: dashboard/views.py:268
 #, python-format
 msgid "Cant create new bank record for %(person)s"
-msgstr ""
+msgstr "Не могу привязать новый банковкий счет для %(person)s"
 
 #: dashboard/views.py:323
 msgid "Your submitted data was not valid - please correct the errors below"
 msgstr ""
+"Ошибки в отправленной информации - пожалуйста, исправьте их перед отправкой"
 
 #: dashboard/views.py:335
 msgid "Juristic Person frozen"
@@ -386,49 +387,57 @@ msgid "Group deleted successfully"
 msgstr "Группа успешно удалена"
 
 #: dashboard/views.py:569
+#, python-brace-format
 msgid "Invoice number starts with \"{invoice_number}\""
-msgstr ""
+msgstr "Счета, соответствующие \"{invoice_number}\""
 
 #: dashboard/views.py:576
+#, python-brace-format
 msgid "Customer name matches \"{customer_name}\""
-msgstr ""
+msgstr "Покупатели, соответствующие \"{customer_name}\""
 
 #: dashboard/views.py:582
+#, python-brace-format
 msgid "Juristic person matches \"{person_name}\""
-msgstr ""
+msgstr "Юридические лица, соответствующие \"{person_name}\""
 
 #. Translators: This string refers to orders in an online
 #. store that were made within a particular date range.
 #: dashboard/views.py:590
+#, python-brace-format
 msgid "Placed between {start_date} and {end_date}"
 msgstr "Размещено с {start_date} по {end_date}"
 
 #. Translators: This string refers to orders in an online store
 #. that were made after a particular date.
 #: dashboard/views.py:600
+#, python-brace-format
 msgid "Placed after {start_date}"
-msgstr "размещено после {start_date}"
+msgstr "Размещено после {start_date}"
 
 #. Translators: This string refers to orders in an online store
 #. that were made before a particular date.
 #: dashboard/views.py:609
+#, python-brace-format
 msgid "Placed before {end_date}"
 msgstr "Размещено до {end_date}"
 
 #: dashboard/views.py:614
+#, python-brace-format
 msgid "Juristic person VAT number matches \"{vatin}\""
-msgstr ""
+msgstr "ИНН содержащие \"{vatin}\""
 
 #. Translators: This string refers to an order in an
 #. online store.  Some examples of order status are
 #. "purchased", "cancelled", or "refunded".
 #: dashboard/views.py:624
+#, python-brace-format
 msgid "Invoice status is {invoice_status}"
-msgstr ""
+msgstr "Статус счета - {invoice_status}"
 
 #: dashboard/views.py:661
 msgid "Invoice value"
-msgstr ""
+msgstr "Сумма счета"
 
 #: dashboard/views.py:662 templates/oscar_ficta/dashboard/invoice_list.html:124
 msgid "Date of purchase"
@@ -440,7 +449,7 @@ msgstr "Номер счета"
 
 #: dashboard/views.py:664 templates/oscar_ficta/dashboard/invoice_list.html:121
 msgid "Number of items"
-msgstr ""
+msgstr "Количество товаров"
 
 #: dashboard/views.py:665 invoice/abstract_models.py:66
 msgid "Invoice status"
@@ -465,18 +474,19 @@ msgstr "КПП"
 #: dashboard/views.py:706
 #, python-format
 msgid "The new status '%s' is not valid"
-msgstr ""
+msgstr "Новый статус '%s' невозможен"
 
 #: dashboard/views.py:710
 #, python-format
 msgid "The new status '%s' is not valid for this invoice"
-msgstr ""
+msgstr "Новый статус '%s' нельзя применть к заказу"
 
 #: dashboard/views.py:719
 #, python-format
 msgid ""
 "Invoice %(number)s status changed from '%(old_status)s' to '%(new_status)s'"
 msgstr ""
+"Статус счета №%(number)s  изменен с '%(old_status)s' на '%(new_status)s'"
 
 #: fields.py:85
 msgid "An International Bank Code"
@@ -491,13 +501,8 @@ msgid "Juristic persons list"
 msgstr "Список контрагентов "
 
 #: forms.py:58
-msgid ""
-"Select a company from the list or <a href='{% url 'customer:person-create' "
-"%}' data-toggle='tooltip' title='Create a new juristic person'>add a new</a>"
-msgstr ""
-"Выберите  плательщика из списка или добавьте <a href='{% url 'customer:"
-"person-create' %}' data-toggle='tooltip' title='Создать нового "
-"контрагента'>нового контрагента</a>"
+msgid "Select a company from the list or add a new"
+msgstr "Выберите контрагента из списка или добавьте нового"
 
 #: forms.py:66
 msgid "No juristic persons found"
@@ -602,6 +607,8 @@ msgid ""
 "%(order.number)s.<br>\n"
 "    Hopes, it will be paid shortly."
 msgstr ""
+"Мы отправим вам счет №%(invoice_number)s к заказу №%(order.number)s.<br>\n"
+"    Счет действителен - 3 рабочих дня."
 
 #: templates/customer/emails/commtype_invoice_sent_body.html:8
 #, python-format
@@ -609,6 +616,8 @@ msgid ""
 "You can view and print your invoice by clicking <a href=\"%(print_url)s\" "
 "title=\"print invoice\">here</a>"
 msgstr ""
+"Вы можете просмотреть и распечатать счет, нажав <a href=\"%(print_url)s\" "
+"title=\"print invoice\">здесь</a>"
 
 #: templates/customer/emails/commtype_invoice_sent_body.html:10
 #: templates/customer/emails/commtype_invoice_sent_body.txt:9
@@ -622,12 +631,15 @@ msgid ""
 "%(order.number)s.\n"
 "Hopes, it will be paid shortly."
 msgstr ""
+"Мы отправим вам счет №%(invoice_number)s к заказу №%(order.number)s.\n"
+"Счет действителен - 3 рабочих дня."
 
 #: templates/customer/emails/commtype_invoice_sent_body.txt:7
 #, python-format
 msgid ""
 "You can view and print your invoice on the site, please, visit %(print_url)s"
 msgstr ""
+"Вы можете просмотреть и распечатать счет на сайте, по ссылке %(print_url)s"
 
 #: templates/customer/emails/commtype_invoice_sent_subject.txt:1
 #, python-format
@@ -663,6 +675,9 @@ msgid ""
 "            <p>Delete group <strong>%(name)s</strong> - are you sure?</p>\n"
 "        "
 msgstr ""
+"\n"
+"            <p>Удалить группу <strong>%(name)s</strong>?</p>\n"
+"        "
 
 #: templates/oscar_ficta/dashboard/group_delete.html:33
 msgid "Deleting..."
@@ -811,7 +826,7 @@ msgstr "Изменить статус"
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:172
 msgid "This invoice can't have its status changed."
-msgstr ""
+msgstr "Статус этого заказа не может быть изменен."
 
 #: templates/oscar_ficta/dashboard/invoice_list.html:189
 msgid "No invoices found."
@@ -832,7 +847,7 @@ msgstr "Изменить статус счета на"
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:26
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Отменить"
 
 #: templates/oscar_ficta/dashboard/partials/bulk_edit_form.html:27
 msgid "Done"
@@ -844,11 +859,11 @@ msgstr "Директор"
 
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:41
 msgid "Active?"
-msgstr ""
+msgstr "Активный?"
 
 #: templates/oscar_ficta/dashboard/partials/person_detail.html:48
 msgid "Num users"
-msgstr ""
+msgstr "Покупателей"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:7
 msgid "Juristic  person"
@@ -874,7 +889,7 @@ msgstr "Включить"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:48
 msgid "Settlement"
-msgstr "Населенный пункт"
+msgstr "Расчетный счет"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:49
 msgid "Default?"
@@ -886,11 +901,11 @@ msgstr "Нет счетов."
 
 #: templates/oscar_ficta/dashboard/person_detail.html:72
 msgid "Number"
-msgstr ""
+msgstr "Номер"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:73
 msgid "Amount"
-msgstr ""
+msgstr "Сумма"
 
 #: templates/oscar_ficta/dashboard/person_detail.html:75
 msgid "Created by"
@@ -988,15 +1003,15 @@ msgstr "Ничего не найдено."
 msgid "Choose counter-agent"
 msgstr "Выберите контр-агента"
 
-#: templates/oscar_ficta/partials/person_select.html:18
+#: templates/oscar_ficta/partials/person_select.html:19
 msgid "This company pays always!"
 msgstr "Эта компания заплатит всегда!"
 
-#: templates/oscar_ficta/partials/person_select.html:22
+#: templates/oscar_ficta/partials/person_select.html:23
 msgid "create another one!"
 msgstr "создать новое юр.лицо"
 
-#: templates/oscar_ficta/partials/person_select.html:36
+#: templates/oscar_ficta/partials/person_select.html:37
 msgid "Save and go on!"
 msgstr "Сохранить и продолжить"
 
@@ -1016,6 +1031,3 @@ msgstr "Неверный номер кредитной организации"
 #: views.py:46
 msgid "Available persons"
 msgstr "Доступные юр.лица"
-
-#~ msgid "Select a company from the list or add a new"
-#~ msgstr "Выберите контрагента из списка или добавьте нового"

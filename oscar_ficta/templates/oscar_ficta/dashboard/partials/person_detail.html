@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load currency_filters %}
 
-<table id="" class="table">
+<table id="" class="table table-striped">
     <tbody>
         <tr>
             <th>{% trans "Name" %}</th>
@@ -12,7 +12,6 @@
             <th>{% trans "Full Name" %}</th>
             <td>{{ person.full_name }}</td>
         </tr>
-        
         <tr>
             <th>{% trans "Description" %}</th>
             <td>{{ person.description|default:"-" }}</td>
@@ -41,14 +40,13 @@
             <th>{% trans "Active?" %}</th>
             <td>{{ person.is_active }}</td>
         </tr>
-        
         {% with num_users=person.users.count %}
-            {% if num_users %}
-                <tr>
-                    <th>{% trans "Num users" %}</th>
-                    <td>{{ num_users}}</td>
-                </tr>
-            {% endif %}
+        {% if num_users %}
+        <tr>
+            <th>{% trans "Num users" %}</th>
+            <td>{{ num_users}}</td>
+        </tr>
+        {% endif %}
         {% endwith %}
     </tbody>
 </table>
