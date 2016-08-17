@@ -55,7 +55,7 @@ class PersonSelectForm(forms.Form):
         default_person = None
         choices = None
         label = _("Juristic persons list")
-        help_text = _("Select a company from the list or add a new")
+        help_text = _("Select a company from the list or <a href='{% url 'customer:person-create' %}' data-toggle='tooltip' title='Create a new juristic person'>add a new</a>")
         if 'for_user' in kwargs.keys():
             for_user = kwargs.pop('for_user')
             widget = forms.HiddenInput
