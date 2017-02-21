@@ -145,8 +145,8 @@
                             {% endif %}
                         </td>
                         <td>{{ invoice.date_created }}</td>
-                        <td>
-                            <a class="btn btn-info" href="#TODO{# url 'oscar_ficta_dashboard:order-detail' number=invoice.number #}">{% trans "View" %}</a>
+                        <td>{#<!-- TODO: NEED URL  url 'oscar_ficta_dashboard:order-detail' number=invoice.number -->#}
+                            <a class="btn btn-info" href="{% url 'invoice:print' number=invoice.number %}">{% trans "View" %}</a>
                         </td>
                     </tr>
                 {% endfor %}

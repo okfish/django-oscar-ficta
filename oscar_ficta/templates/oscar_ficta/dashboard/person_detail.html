@@ -28,17 +28,19 @@
 {% endblock header %}
 
 {% block dashboard_content %}
-
-{% include 'oscar_ficta/dashboard/partials/person_detail.html' %}
-<p>
-    <a class="btn" href="{% url 'oscar_ficta_dashboard:persons-update' person.id %}">{% trans "Edit" %}</a>
-	{% if person.is_active %}
-	<a href="{% url 'oscar_ficta_dashboard:persons-freeze' person.id %}" class="btn btn-danger">{% trans "Freeze" %}</a>
-	{% else %}
-	<a href="{% url 'oscar_ficta_dashboard:persons-enable' person.id %}" class="btn btn-success">{% trans "Enable" %}</a>
-	{% endif %}
-</p>
-
+<div class="panel panel-default">
+	<div class="panel-body">
+		{% include 'oscar_ficta/dashboard/partials/person_detail.html' %}
+	</div>
+	<div class="panel-footer">
+		<a class="btn btn-default pull-right" href="{% url 'oscar_ficta_dashboard:persons-update' person.id %}">{% trans "Edit" %}</a>
+		{% if person.is_active %}
+		<a class="btn btn-danger" href="{% url 'oscar_ficta_dashboard:persons-freeze' person.id %}">{% trans "Freeze" %}</a>
+		{% else %}
+		<a class="btn btn-success" href="{% url 'oscar_ficta_dashboard:persons-enable' person.id %}">{% trans "Enable" %}</a>
+		{% endif %}
+	</div>
+</div>
 <h2>{% trans "Bank accounts" %}</h2>
 {% if person.bank_accounts.count %}
 	<table id="" class="table">

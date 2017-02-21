@@ -66,15 +66,14 @@
                     <td>{{ person.group.full_name }}</td>
                     <td>{{ person.person_invoices.count }}</td>
                     <td>{{ person.date_created }}</td>
-                    <td><a href="{% url 'oscar_ficta_dashboard:persons-update' person.id %}" class="btn">{% trans "Edit" %}</a>
-                        
-                        <a href="{% url 'oscar_ficta_dashboard:persons-detail' person.id %}" class="btn">{% trans "Orders" %}</a>
+                    <td>
+                        <a href="{% url 'oscar_ficta_dashboard:persons-update' person.id %}" class="btn btn-default">{% trans "Edit" %}</a>
+                        <a href="{% url 'oscar_ficta_dashboard:persons-detail' person.id %}" class="btn btn-info">{% trans "Orders" %}</a>
                         {% if person.is_active %}
-                            <a href="{% url 'oscar_ficta_dashboard:persons-freeze' person.id %}" class="btn btn-danger">{% trans "Freeze" %}</a>
+                        <a href="{% url 'oscar_ficta_dashboard:persons-freeze' person.id %}" class="btn btn-danger">{% trans "Freeze" %}</a>
                         {% else %}
-                            <a href="{% url 'oscar_ficta_dashboard:persons-enable' person.id %}" class="btn btn-success">{% trans "Enable" %}</a>
+                        <a href="{% url 'oscar_ficta_dashboard:persons-enable' person.id %}" class="btn btn-success">{% trans "Enable" %}</a>
                         {% endif %}
-                     
                     </td>
                 </tr>
             {% endfor %}
