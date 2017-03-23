@@ -5,11 +5,11 @@ from django.conf import settings
 from django.core import exceptions
 from django.http import QueryDict
 from django.utils.translation import ugettext_lazy as _
-from django.db.models import get_model
 from django.forms.models import inlineformset_factory
 
 from treebeard.forms import movenodeform_factory
 
+from oscar.core.loading import get_model
 from oscar.forms.widgets import DatePickerInput
 from oscar.templatetags.currency_filters import currency
 
